@@ -12,19 +12,21 @@
 				<text class="tit_m">序号</text>
 				<text class="tit_m">姓名</text>
 				<text class="tit_xl">图片</text>
-				<text class="tit_xxl">班级</text>
+				<!-- <text class="tit_xxl">班级</text> -->
 				<text class="tit_l">体温值</text>
 				<text class="tit_m">状态</text>
 				<text class="tit_m">进出</text>
 			</view>
-			<view class="tit_list flex-center" v-for="(item ,index) in 10" :key='index'>
+			<view class="tit_list flex-center" v-for="(item ,index) in newslist.userDate.list" :key='index'>
 				<text class="tit_m">{{index+1}}</text>
-				<text class="tit_m">小明</text>
-				<image :src="image" mode="widthFix" @click="openImg(image)"></image>
-				<text class="tit_xxl">一年级{{index+1}}班</text>
-				<text class="tit_l">37°</text>
-				<text class="tit_m">正常</text>
-				<text class="tit_m">进入</text>
+				<text class="tit_m">{{item.reserveFour}}</text>
+				<image :src="item.imgbase64" mode="aspectFit" @click="maximg(item.imgbase64)"></image>
+				<!-- <text class="tit_xxl">{{item.reserveThree}}</text> -->
+				<text class="tit_l">{{item.temperature}}</text>
+				<text class="tit_m" v-if="item.temperaturestate=='1'">正常</text>
+				<text class="tit_m" v-if="item.temperaturestate=='2'">异常</text>
+				<text class="tit_m" v-if="item.reserveTwo=='1'">进入</text>
+				<text class="tit_m" v-if="item.reserveTwo=='2'">出入</text>
 			</view>
 				<view class="tit_page flex-center">
 					<view class="pages_number flex-center flex-around">
@@ -44,7 +46,7 @@
 		data() {
 			return {
 				newslist:'',
-				image:'../../../static/img/jiankong3.jpg',
+				image:['../../../static/img/jiankong3.jpg'],
 				selectDay: 0, //天数
 				array: ['今天','一天前', '二天前', '三天前', '四天前', '五天前', '六天前'],
 				list:{
@@ -82,13 +84,15 @@
 			console.log(this.newslist);
 		},
 		methods: {
+			
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.selectDay = e.target.value
 			},
-			maximg(){
-				console.log('yizhixin')
-				this.openImg(this.image);
+			maximg(item){
+				console.log('yizhixin');
+				let img = [item];
+				this.openImg(img);
 			},
 			//页码渲染
 			add(index) {
@@ -182,6 +186,7 @@
 			image{
 				padding: 3px;
 				width: 50px;
+				height: 50px;
 				border-radius: 5px;
 			}
 		}

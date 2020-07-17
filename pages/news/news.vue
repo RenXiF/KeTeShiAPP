@@ -95,12 +95,18 @@
 				this.http.getApi('/discern/ClassDate', {
 					schoolId: this.userlist.schoolId,
 					classId: this.userlist.classId,
-					selectDay: 0,
+					selectDay: 1,
 					pageNum:1,
 					pageSize:10
 				}, 'post').then(res => {
 					console.log("res");
 					console.log(res);
+					// console.log(JSON.parse(res));
+					// let data = JSON.parse(res);
+					// var temp = eval("(" + res + ")");
+					// var i = JSON.parse(res.data);
+					// console.log(i);
+					
 					uni.setStorageSync('newslist', res.data);
 					// if (res.data.list.length==0) {
 					// 	if (this.pageNum==1) {
@@ -126,7 +132,8 @@
 				}, 'get').then(res => {
 					console.log("res");
 					console.log(res);
-					// uni.setStorageSync('systemNews', res.data);
+					// console.log(JSON.parse(res));
+					uni.setStorageSync('systemNews', res.data);
 					// if (res.data.list.length==0) {
 					// 	if (this.pageNum==1) {
 					// 		this.menuLists = null;

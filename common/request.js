@@ -56,6 +56,7 @@ export function getApi(uri, param, method, debug) {
 				}
 				// console.log("打印接口");
 				// console.log(res);
+				// console.log(JSON.parse(res.data));
 				// console.log(JSON.stringify(res))
 				if (res.statusCode == 200 && res.data.status == 0) {
 					resolt(res.data);
