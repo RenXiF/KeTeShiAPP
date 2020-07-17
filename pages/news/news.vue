@@ -16,9 +16,7 @@
 					</view>
 				</view>
 			</view>
-			<!-- <image :src="img1" mode="widthFix"></image> -->
 		</view>
-		<button type="default" @click="newslist()">请求</button>
 		<view class="null flex_columns" v-show="!list">
 			<image src="/static/icon/news_1.png" mode="widthFix"></image>
 			<text class="title">{{title}}</text>

@@ -131,7 +131,8 @@
         ,{
             "path" : "pages/news/newsDetails/userTeacher",
             "style" : {
-				"navigationBarTitleText": "班级管理"
+				"navigationBarTitleText": "班级管理",
+				"navigationBarBackgroundColor": "#FFFFFF"
 			}
         }
         ,{
