@@ -9,7 +9,7 @@
 						<image :src="icon" mode="widthFix"></image>
 						<text>{{tit}}</text>
 					</view>
-					<image style="width: 30px;" @click="doUrl('pages/news/newsDetails/userTeacher',{ulist:list})" src="../../static/icon/more.png" mode="widthFix"></image>
+					<image style="width: 30px;" @click="doUrl('pages/news/newsDetails/userTeacher')" src="../../static/icon/more.png" mode="widthFix"></image>
 				</view>
 				<view class="list_block flex_columns">
 					<view class="itemImg flex_columns" @click="yulanr(imglist)">

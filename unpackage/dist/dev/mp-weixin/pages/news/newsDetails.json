@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "消息详情",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "user-parent": "/components/newsDetails/userParent",
+    "user-principal": "/components/newsDetails/userPrincipal",
+    "user-teacher": "/components/newsDetails/userTeacher"
+  }
+}

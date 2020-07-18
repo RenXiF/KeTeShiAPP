@@ -1,0 +1,64 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/user/user",
+    "pages/news/news",
+    "pages/user/feedback",
+    "pages/login/login",
+    "pages/login/forget",
+    "pages/login/register",
+    "pages/user/LanEquipment",
+    "pages/user/aboutApp",
+    "pages/user/general/generalTools",
+    "pages/index/videoDetails",
+    "pages/user/userShare",
+    "pages/user/userAlbum",
+    "pages/user/userVideoPlayback",
+    "pages/user/userAttendance",
+    "pages/user/userattendanceAdmin",
+    "pages/user/userSecurity",
+    "pages/news/newsDetails",
+    "pages/index/indexMenslist",
+    "pages/user/userBinding",
+    "pages/news/newsDetails/userPrincipal",
+    "pages/news/newsDetails/userTeacher",
+    "pages/news/newsDetails/userParent"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#333333",
+    "height": "60px",
+    "fontSize": "12px",
+    "borderStyle": "black",
+    "blurEffect": "extralight",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/icon/home.png",
+        "selectedIconPath": "static/icon/homes.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/news/news",
+        "iconPath": "static/icon/chat.png",
+        "selectedIconPath": "static/icon/chat_1.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "static/icon/personal_1.png",
+        "selectedIconPath": "static/icon/personal.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap70.json"
+}

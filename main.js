@@ -6,9 +6,12 @@ import amap from './common/amap.js';
 import * as http from '@/common/request.js'
 const utils = require("./common/util.js");
 
+// import $http from 'common/requestConfig.js';
+// Vue.prototype.$http = $http;
+
 Vue.prototype.http = http;
 Vue.prototype.utils = utils;
-
+Vue.prototype.url = 'http://192.168.0.116:8080/';
 /**
  * 客服电话
  */

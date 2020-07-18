@@ -1,0 +1,1 @@
+<view class="index_security"><list vue-id="90827f00-1" listdata="{{list}}" data-event-opts="{{[['^clicklist',[['httplist']]]]}}" bind:clicklist="__e" bind:__l="__l"></list></view>

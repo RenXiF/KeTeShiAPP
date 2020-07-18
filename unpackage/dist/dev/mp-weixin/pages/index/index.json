@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "首页",
+  "navigationBarBackgroundColor": "#F8F8F8",
+  "usingComponents": {
+    "rotation": "/components/swiper-Rotation/swiper-Rotation",
+    "article-card": "/components/article-card/article-card"
+  }
+}

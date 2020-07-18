@@ -20,7 +20,7 @@
 			<view class="tit_list flex-center" v-for="(item ,index) in newslist.userDate.list" :key='index'>
 				<text class="tit_m">{{index+1}}</text>
 				<text class="tit_m">{{item.reserveFour}}</text>
-				<image :src="item.imgbase64" mode="aspectFit" @click="maximg(item.imgbase64)"></image>
+				<image :src="item.imgbase64" mode="aspectFit"></image>
 				<!-- <text class="tit_xxl">{{item.reserveThree}}</text> -->
 				<text class="tit_l">{{item.temperature}}</text>
 				<text class="tit_m" v-if="item.temperaturestate=='1'">正常</text>
@@ -46,7 +46,8 @@
 		data() {
 			return {
 				newslist:'',
-				image:['../../../static/img/jiankong3.jpg'],
+				image:[],
+				userlist:'',
 				selectDay: 0, //天数
 				array: ['今天','一天前', '二天前', '三天前', '四天前', '五天前', '六天前'],
 				list:{
@@ -76,29 +77,60 @@
 				pages:0,//总页数
 				pageSize:0,//每页数
 				total:0,//数据总条数
+				navigatepageNums:0
 			}
 		},
 		onLoad() {
+			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
 			this.newslist = uni.getStorageSync('newslist'); //加载用户缓存
 			// this.clsslist = list;
+			console.log(this.userlist);
 			console.log(this.newslist);
 		},
 		methods: {
 			
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.selectDay = e.target.value
+				this.selectDay = e.target.value;
 			},
-			maximg(item){
-				console.log('yizhixin');
-				let img = [item];
-				this.openImg(img);
+			maximg(){
+				// console.log('yizhixin');
+				// this.image = item;
+				// this.openImg(this.image);
 			},
 			//页码渲染
 			add(index) {
 				// console.log(index);
 				this.pageNum = index;
-				// this.userlistdata(this.pageNum);
+				this.teacher(this.pageNum);
+			},
+			//老师请求
+			teacher(){
+				this.http.getApi('/discern/ClassDate', {
+					schoolId: this.userlist.schoolId,
+					classId: this.userlist.classId,
+					selectDay: this.selectDay,
+					pageNum:this.pageNum,
+					pageSize:2
+				}, 'post').then(res => {
+					console.log("res");
+					console.log(res);
+					if (res.data.userDate.list.length==0) {
+						this.newslist = null;
+					} else{
+						// console.log(this.mensname.id);
+						this.newslist = res.data.userDate.list;
+						this.pageNum = res.data.userDate.pageNum;
+						this.navigatepageNums = res.data.userDate.navigatepageNums;
+						this.total = res.data.userDate.total;
+						this.pageSize = res.data.userDate.pageSize;
+					}
+					// uni.setStorageSync('newslist', res.data);
+					  
+				}).catch(err => {
+					console.log("err");
+					console.log(err);
+				});
 			},
 		}
 	}

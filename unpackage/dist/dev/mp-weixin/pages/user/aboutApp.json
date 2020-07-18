@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "关于",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "list": "/components/list/list"
+  }
+}

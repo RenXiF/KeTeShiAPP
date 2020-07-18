@@ -16,11 +16,12 @@
 					</view>
 				</view>
 			</view>
+			<button type="default" @click="newslist()">发起请求</button>
 		</view>
 		<view class="null flex_columns" v-show="!list">
 			<image src="/static/icon/news_1.png" mode="widthFix"></image>
 			<text class="title">{{title}}</text>
-			
+
 		</view>
 
 	</view>
@@ -28,18 +29,6 @@
 
 <script>
 	export default {
-		computed: {
-			formatPrice() {
-				return function(val) {
-					return val ? parseFloat(val).toFixed(2) : '';
-				}
-			},
-			formatTime() { //格式化时间，并截取到天数
-				return function(val) {
-					return this.utils.formatdate(val / 1000).substring(0, 5) //substring（）截取时间
-				}
-			}
-		},
 		data() {
 			return {
 				title: '暂无消息',
@@ -60,105 +49,96 @@
 						data: "2020-7-1 8:00"
 					}
 				],
-				data:[],
-				leng:0
+				data: [],
+				leng: 0,
+				openid:''
 			}
 		},
-		onPullDownRefresh() {
-			setTimeout(function() {
-				uni.stopPullDownRefresh();
-			}, 1000);
-			// this.utils.success("刷新成功！");
-		},
-		onLoad: function(options) {
-			setTimeout(function() {
-
-			}, 1000);
-			uni.startPullDownRefresh();
+		onLoad() {
+			
 		},
 		onShow() {
+			this.openid = uni.getStorageSync('openid'); //加载用户缓存
 			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
 			console.log(this.userlist);
-			// this.listdate();
-			this.newslist();
+			console.log(this.openid);
+
+			// this.newslist();
 		},
 		methods: {
-			newslist(){
+			newslist() {
 				console.log('已执行');
 				this.teacher();
 				// if(this.userlist.userRole == 2){
 				// 	this.teacher();
 				// }
 			},
+			
 			//老师请求
-			teacher(){
-				this.http.getApi('/discern/ClassDate', {
-					schoolId: this.userlist.schoolId,
-					classId: this.userlist.classId,
-					selectDay: 1,
-					pageNum:1,
-					pageSize:10
-				}, 'post').then(res => {
-					console.log("res");
-					console.log(res);
-					// console.log(JSON.parse(res));
-					// let data = JSON.parse(res);
-					// var temp = eval("(" + res + ")");
-					// var i = JSON.parse(res.data);
-					// console.log(i);
-					
-					uni.setStorageSync('newslist', res.data);
-					// if (res.data.list.length==0) {
-					// 	if (this.pageNum==1) {
-					// 		this.menuLists = null;
-					// 	} else{
-					// 		this.utils.error('暂无更多')
-					// 		console.log('------暂无更多------');
-					// 	}
-					// } else{
-					// 	this.menuLists = this.pageNum>1 ? this.menuLists.concat(res.data.list) : res.data.list;
-					// 	this.pageNum = res.data.pageNum == this.pageNum ? this.pageNum+1 : this.pageNum;
-					// }
-					  
-				}).catch(err => {
-					console.log("err");
-					console.log(err);
+			teacher() {
+				uni.request({
+				    url: this.url+'discern/ClassDate', //仅为示例，并非真实接口地址。
+				    data: {
+				       schoolId: this.userlist.schoolId,
+				       	classId: this.userlist.classId,
+				       	selectDay: 1,
+				       	pageNum:1,
+				       	pageSize:10
+				    },
+					method:'POST',
+				    header: {
+				        'login': this.openid //自定义请求头信息
+				    },
+				    success: (res) => {
+						console.log('正确');
+						console.log(res);
+						uni.setStorageSync('newslist', this.res.data);
+				        
+				        // this.text = 'request success';
+				    },
+					fail:(err) =>{
+						console.log('错误');
+						console.log(err);
+					}
 				});
+
+				// this.http.getApi('/discern/ClassDate', {
+				// 	// schoolId: this.userlist.schoolId,
+				// 	// classId: this.userlist.classId,
+				// 	schoolId: 1,
+				// 	classId: 1,
+				// 	selectDay: 2,
+				// 	pageNum:1,
+				// 	pageSize:10
+				// }, 'post').then(res => {
+				// 	console.log("res");
+				// 	if(Object.prototype.toString.call(res) !== '[object Object]'){
+				// 		console.log('执行if');
+				// 		res=JSON.parse(res);
+				// 		console.log(res);
+				// 		console.log(res.data);
+
+				// 	}
+				// 	console.log('不执行if');
+				// 	console.log(res);
+				// 	console.log('打印成功！！！！！！！');
+				// }).catch(err => {
+				// 	console.log("err");
+				// 	console.log(err);
+				// });
 			},
+			// 校长
 			listdate() {
-				// var _this = this;
 				this.http.getApi('discern/SchoolDate', {
 					schoolid: this.userlist.schoolId
 				}, 'get').then(res => {
 					console.log("res");
 					console.log(res);
-					// console.log(JSON.parse(res));
 					uni.setStorageSync('systemNews', res.data);
-					// if (res.data.list.length==0) {
-					// 	if (this.pageNum==1) {
-					// 		this.menuLists = null;
-					// 	} else{
-					// 		this.utils.error('暂无更多')
-					// 		console.log('------暂无更多------');
-					// 	}
-					// } else{
-					// 	this.menuLists = this.pageNum>1 ? this.menuLists.concat(res.data.list) : res.data.list;
-					// 	this.pageNum = res.data.pageNum == this.pageNum ? this.pageNum+1 : this.pageNum;
-					// }
 					let i = this.utils.getDate();
-					// this.$set(list,'dateli',i);
-					// console.log(list);
 					this.data = [res.data];
 					uni.setStorageSync('newslist', this.data);
 					console.log(this.data);
-					// let li = res.data;
-					
-					// console.log(this.data.length);
-					// this.leng = this.data.length;
-					// Vue.set(this.data,this.leng,{dateli:i,typeOneSum:li.typeOneSum,typeTwoSum:li.typeTwoSum,studentSum:li.studentSum,typeOneErry:li.typeOneErry,});
-					// console.log(this.data);
-					
-					  
 				}).catch(err => {
 					console.log("err");
 					console.log(err);
@@ -186,7 +166,7 @@
 	}
 
 	// 消息主样式
-	.dian{
+	.dian {
 		width: 10px;
 		height: 10px;
 		z-index: 9;
@@ -196,6 +176,7 @@
 		border-radius: 5px;
 		background-color: #ff5500;
 	}
+
 	.news_block {
 		max-width: 100%;
 		padding: 0 15px;
@@ -209,7 +190,7 @@
 			.one_img {
 				min-width: 20%;
 				min-height: 50px;
-				
+
 				// border-radius: 15px;
 				// border: #4CD964 1px solid;
 				image {

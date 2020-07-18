@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "通用工具",
+  "usingComponents": {
+    "list": "/components/list/list"
+  }
+}

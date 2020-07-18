@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "班级管理",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "paging": "/components/yang-paging/fy"
+  }
+}

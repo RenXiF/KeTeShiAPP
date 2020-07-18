@@ -1,12 +1,6 @@
 <template>
 	<!-- 消息详情页面 -->
 	<view class="index_details flex_columns" v-if="userlist">
-		<!-- <text @click="ja()">{{datal}}</text> -->
-		<!-- <view class="boder tit_date">
-			<picker @change="bindPickerChange" :value="selectDay" :range="array">
-				<view class="uni-input">{{array[selectDay]}}</view>
-			</picker>
-		</view> -->
 		<view v-if="userRole==1">
 			<userParent :tit='tit' :icon='img'></userParent>
 		</view>
@@ -34,8 +28,6 @@
 			return {
 				tit: null,
 				img: null,
-				selectDay: 0, //天数
-				array: ['今天','一天前', '二天前', '三天前', '四天前', '五天前', '六天前'],
 				userRole: 2,
 				userlist: {
 					userRole: 3
@@ -47,12 +39,16 @@
 		onLoad(e) {
 			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
 			this.newslist = uni.getStorageSync('newslist'); //加载用户缓存
+			if(this.newslist == ''){
+				this.teacher();
+			}
 			console.log(this.userlist);
 			console.log(this.newslist);
 			console.log(this.userlist.userRole);
 			this.tit = e.tit;
 			this.img = e.img;
 			console.log(e);
+			
 		},
 		onReady() {
 			uni.setNavigationBarTitle({
@@ -60,16 +56,12 @@
 			});
 		},
 		methods: {
-			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.selectDay = e.target.value
-			},
 			//老师请求
 			teacher() {
 				this.http.getApi('/discern/ClassDate', {
 					schoolId: this.userlist.schoolId,
 					classId: this.userlist.classId,
-					selectDay: this.selectDay,
+					selectDay: 0,
 					pageNum: 1,
 					pageSize: 10
 				}, 'post').then(res => {

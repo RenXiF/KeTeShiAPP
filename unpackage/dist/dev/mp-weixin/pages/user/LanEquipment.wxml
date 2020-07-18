@@ -1,0 +1,1 @@
+<view class="index_equipment"><navigation vue-id="7ec70a54-1" fixed="true" border="true" title="设备列表" backgroundColor="#ffffff" leftIcon="../../static/icon/left.png" rightIcon="../../static/icon/add.png" rightIcon2="../../static/icon/search.png" data-event-opts="{{[['^clickLeft',[['unavback']]]]}}" bind:clickLeft="__e" bind:__l="__l"></navigation></view>

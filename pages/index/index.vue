@@ -112,12 +112,10 @@
 
 			}
 		},
-		onLoad: function(options) {
-			// this.iStatusBarHeight = uni.getSystemInfoSync().statusBarHeight + 44;
-			// Userlist();
+		onLoad() {
+			
 		},
 		methods: {
-
 			menslist(item) {
 				console.log(item);
 				this.doUrl("pages/index/indexMenslist", {
