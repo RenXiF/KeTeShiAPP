@@ -2,14 +2,18 @@
 	<!-- 校方消息详情 -->
 	<view class="index_details flex_columns">
 		<view class="news_details flex-center flex_columns" v-for="(item,index) in list" v-if="list">
-			<text style="color: #C0C0C0;">{{item.contit}}</text>
+			<text style="color: #C0C0C0;">{{data}}</text>
 			<view class="details_bk flex_columns">
 				<view class="tit_bk flex-between flex-center">
 					<view class="tit_name flex-center">
 						<image :src="icon" mode="widthFix"></image>
 						<text>{{tit}}</text>
 					</view>
-					<image style="width: 30px;" src="../../static/icon/more.png" mode="widthFix"></image>
+					<picker @change="bindPickerChange" :value="selectDay" :range="array" class="flex-center">
+						<text style="margin-right: 10px;">{{array[selectDay]}}</text>
+						<image style="width: 30px;" src="../../static/icon/more.png" mode="widthFix"></image>
+					</picker>
+
 				</view>
 				<view class="list_block flex_columns">
 					<view class="itemImg flex_columns" @click="yulanr(imglist)">
@@ -65,15 +69,50 @@
 		data() {
 			return {
 				du: 1,
-				data:'2020年7月1号 12:30',
+				userlist:'',
+				data: this.utils.getDate(),
 				imglist: ["../../static/img/lunbo/1.png",
 					"../../static/img/lunbo/2.png"
-				]
+				],
+				selectDay: 0,
+				array: ['今天', '一天前', '二天前', '三天前', '四天前', '五天前', '六天前'],
 			}
 		},
+		onLoad() {
+		},
 		methods: {
-			yulanr(item2){
+			bindPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为', e.target.value)
+				this.listdate();
+				this.selectDay = e.target.value;
+				// this.pageNum = 1;
+				
+			},
+			yulanr(item2) {
 				this.openImg(item2);
+			},
+			// 校长
+			listdate() {
+				if(this.userlist == ''){
+					this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
+				}
+				console.log(this.userlist);
+				this.utils.showloading();
+				this.http.getApi('/discern/SchoolDate', {
+					schoolid: this.userlist.schoolId,
+					selectDay:this.selectDay
+				}, 'get').then(res => {
+					console.log("res");
+					console.log(res);
+					this.list = [res.data];
+					console.log(this.list);
+					uni.hideLoading();
+					this.utils.success('查询成功！');
+				}).catch(err => {
+					console.log("err");
+					console.log(err);
+					uni.hideLoading();
+				});
 			}
 		}
 	}

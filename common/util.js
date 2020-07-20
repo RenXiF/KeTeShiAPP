@@ -960,9 +960,4 @@ function formatdate(number, format) {
 	return format;
 }
 
-/** 
- * 图片转base64
- * @param {string} format 格式 
- * @param {int} timestamp 要格式化的时间 默认为当前时间 
- */
 

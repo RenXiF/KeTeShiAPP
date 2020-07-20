@@ -1,7 +1,7 @@
 <template>
 	<!-- 家长消息详情 -->
 	<view class="index_details flex_columns">
-		<view class="news_details flex-center flex_columns" v-for="(item,index) in list" v-if="list">
+		<view class="news_details flex-center flex_columns" v-for="(item,index) in list.list" v-if="list">
 			<text style="color: #C0C0C0;">{{item.contit}}</text>
 			<view class="details_bk flex_columns">
 				<view class="tit_bk flex-between flex-center">
@@ -12,23 +12,34 @@
 					<image style="width: 30px;" src="../../static/icon/more.png" mode="widthFix"></image>
 				</view>
 				<view class="list_block flex_columns">
-					<view class="itemImg flex_columns" @click="yulanr(item.imglist)">
+					<view class="itemImg flex_columns" @click="yulanr(item.imgbase64)">
 						<text>监控画面</text>
-						<image v-for="(item2 ,index) in item.imglist" :src="item2" mode="widthFix" v-show="index==0"></image>
+						<!-- <image v-for="(item2 ,index) in item.imglist" :src="item2" mode="widthFix" v-show="index==0"></image> -->
+						<image :src="item.imgbase64" mode="aspectFill"></image>
 						<text>点击图片查看更多</text>
 					</view>
 
-					<view class="one_name flex-between">
-						<text>进校时间：</text>
-						<text class="wendu2">{{item.contit}}</text>
+					<view class="one_name flex-between" v-if="item.createdTime">
+						<text>时间：</text>
+						<text class="wendu2">{{item.createdTime.substring(0,16)}}</text>
 					</view>
-					<view class="one_name flex-between">
-						<text>出校时间：</text>
-						<text class="wendu2">{{item.contit2}}</text>
+					<view class="one_name flex-between" v-if="item.reserveFour">
+						<text>名字：</text>
+						<text class="wendu2">{{item.reserveFour}}</text>
 					</view>
-					<view class="one_name flex-between">
+					<view class="one_name flex-between" v-if="item.reserveTwo">
+						<text>进出类型：</text>
+						<text class="wendu2" v-if="item.reserveTwo==1">进校</text>
+						<text class="wendu2" v-if="item.reserveTwo==2">出校</text>
+					</view>
+					<view class="one_name flex-between" v-if="item.temperaturestate">
+						<text>体温状态：</text>
+						<text class="wendu2" v-if="item.temperaturestate==1">正常</text>
+						<text class="wendu" v-if="item.temperaturestate==2">异常</text>
+					</view>
+					<view class="one_name flex-between" v-if="item.temperature">
 						<text>体温情况：</text>
-						<text :class="[item.contit3 >= du ? 'wendu' : 'wendu2']">{{item.contit3}}°</text>
+						<text :class="[item.temperature >= du ? 'wendu' : 'wendu2']">{{item.temperature}}°</text>
 					</view>
 				</view>
 			</view>
@@ -47,7 +58,7 @@
 				type: String,
 				default: '../../static/img/icon1.png'
 			},
-			selected: {
+			list: {
 				type: Array,
 				default () {
 					return []
@@ -57,35 +68,13 @@
 		data() {
 			return {
 				du: 38,
-				list: [{
-						contit: "2020年7月1号 12:30",
-						contit2: "2020年7月1号 17:30",
-						contit3: 37.6,
-						imglist: ["../../static/img/jiankong2.jpg",
-							"../../static/img/jiankong3.jpg"
-						]
-					},
-					{
-						contit: "2020年7月2号 12:30",
-						contit2: "2020年7月2号 17:30",
-						contit3: 37.3,
-						imglist: ["../../static/img/jiankong4.jpg",
-							"../../static/img/jiankong5.jpg"
-						]
-					},
-					{
-						contit: "2020年7月3号 12:30",
-						contit2: "2020年7月3号 17:30",
-						contit3: 42.4,
-						imglist: ["../../static/img/jiankong6.jpg",
-							"../../static/img/jiankong2.jpg"
-						]
-					}
+				imglist: ["../../static/img/jiankong4.jpg",
+					"../../static/img/jiankong5.jpg"
 				]
 			}
 		},
 		methods: {
-			yulanr(item2){
+			yulanr(item2) {
 				this.openImg(item2);
 			}
 		}

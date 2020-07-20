@@ -16,7 +16,6 @@
 					</view>
 				</view>
 			</view>
-			<button type="default" @click="newslist()">发起请求</button>
 		</view>
 		<view class="null flex_columns" v-show="!list">
 			<image src="/static/icon/news_1.png" mode="widthFix"></image>
@@ -76,56 +75,20 @@
 			
 			//老师请求
 			teacher() {
-				uni.request({
-				    url: this.url+'discern/ClassDate', //仅为示例，并非真实接口地址。
-				    data: {
-				       schoolId: this.userlist.schoolId,
-				       	classId: this.userlist.classId,
-				       	selectDay: 1,
-				       	pageNum:1,
-				       	pageSize:10
-				    },
-					method:'POST',
-				    header: {
-				        'login': this.openid //自定义请求头信息
-				    },
-				    success: (res) => {
-						console.log('正确');
-						console.log(res);
-						uni.setStorageSync('newslist', this.res.data);
-				        
-				        // this.text = 'request success';
-				    },
-					fail:(err) =>{
-						console.log('错误');
-						console.log(err);
-					}
+				this.http.getApi('/discern/ClassDate', {
+					schoolId: this.userlist.schoolId,
+					classId: this.userlist.classId,
+					selectDay: 4,
+					pageNum:1,
+					pageSize:10
+				}, 'post').then(res => {
+					console.log("res");
+					console.log(res);
+					uni.setStorageSync('newslist', res.data);
+				}).catch(err => {
+					console.log("err");
+					console.log(err);
 				});
-
-				// this.http.getApi('/discern/ClassDate', {
-				// 	// schoolId: this.userlist.schoolId,
-				// 	// classId: this.userlist.classId,
-				// 	schoolId: 1,
-				// 	classId: 1,
-				// 	selectDay: 2,
-				// 	pageNum:1,
-				// 	pageSize:10
-				// }, 'post').then(res => {
-				// 	console.log("res");
-				// 	if(Object.prototype.toString.call(res) !== '[object Object]'){
-				// 		console.log('执行if');
-				// 		res=JSON.parse(res);
-				// 		console.log(res);
-				// 		console.log(res.data);
-
-				// 	}
-				// 	console.log('不执行if');
-				// 	console.log(res);
-				// 	console.log('打印成功！！！！！！！');
-				// }).catch(err => {
-				// 	console.log("err");
-				// 	console.log(err);
-				// });
 			},
 			// 校长
 			listdate() {
