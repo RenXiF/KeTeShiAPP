@@ -15,7 +15,7 @@
 				<text class="tit_m">状态</text>
 				<text class="tit_m">进出</text>
 			</view>
-			<view class="tit_list flex-center" v-for="(item ,index) in newslist.userDate.list" :key='index' v-if="newslist">
+			<view class="tit_list flex-center" v-for="(item ,index) in newslist.list" :key='index' v-if="newslist">
 				<text class="tit_m">{{index+1}}</text>
 				<text class="tit_m">{{item.reserveFour}}</text>
 				<image :src="item.imgbase64" mode="aspectFill" @click="maximg(item.imgbase64)"></image>
@@ -26,11 +26,14 @@
 				<text class="tit_m" v-if="item.reserveTwo=='1'">进入</text>
 				<text class="tit_m" v-if="item.reserveTwo=='2'">出入</text>
 			</view>
-			<view class="tit_page flex-center">
+			<view class="tit_page flex-center" v-if="newslist">
 				<view class="pages_number flex-center flex-around">
 					<paging :pageSize="pageSize" :total="total" activecolor="#FFFFFF" activebackground="#DD524D" :footer="true"
 					 :current="1" @changes="add"></paging>
 				</view>
+			</view>
+			<view class="null" v-if="!newslist">
+				<text>暂无记录</text>
 			</view>
 		</view>
 		<cusPreviewImg ref="cusPreviewImg" :list="ImgList" />
@@ -53,29 +56,6 @@
 				data:this.utils.getDate(),
 				selectDay: 0, //天数
 				array: ['今天', '一天前', '二天前', '三天前', '四天前', '五天前', '六天前'],
-				list: {
-					"id": 4, //表id
-					"createdTime": "2020-07-16T07:49:07.000+00:00", //
-					"updatedTime": "2020-07-16T14:21:55.000+00:00", //
-					"devicekey": "safasf", //设备序列号
-					"personid": "1453646", //人员ID
-					"time": "156165", //时间戳
-					"type": "23456", //识别模式
-					"path": "asdasd", //访问URL
-					"data": null, //认证模式
-					"ip": "asd", //设备局域网ip
-					"searchscore": "searchScore", //识别比分
-					"livenessscore": "livenessScore", //活体比分
-					"temperature": "temperature", //人员温度值
-					"standard": "standard", //设置的异常温度值
-					"temperaturestate": "2", //体温状态：1正常，2异常
-					"reserveOne": "1", //学校ID
-					"reserveTwo": "2", //进出类型：1进，2出
-					"reserveThree": "1", //班级ID
-					"reserveFour": "严", //姓名
-					"reserveFive": null, //
-					"imgbase64": "231" //识别图片
-				},
 				pageNum: 1, //第几页
 				pages: 0, //总页数
 				pageSize: 0, //每页数
@@ -83,18 +63,24 @@
 				navigatepageNums: 0
 			}
 		},
-		onLoad() {
+		onLoad(e) {
 			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
-			this.newslist = uni.getStorageSync('newslist'); //加载用户缓存
-			this.pageNum = this.newslist.userDate.pageNum;
-			this.pages = this.newslist.userDate.pages;
-			this.pageSize = this.newslist.userDate.pageSize;
-			this.total = this.newslist.userDate.total;
-			console.log(this.userlist);
-			console.log(this.newslist);
+			if(e.status==0){
+				uni.removeStorageSync('newslist');
+			}else{
+				this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
+				this.newslist = uni.getStorageSync('newslist'); //加载用户缓存
+				this.pageNum = this.newslist.pageNum;
+				this.pages = this.newslist.pages;
+				this.pageSize = this.newslist.pageSize;
+				this.total = this.newslist.total;
+				console.log(this.userlist);
+				console.log(this.newslist);
+			}
 		},
 		methods: {
 			bindPickerChange: function(e) {
+				this.utils.showloading();
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.selectDay = e.target.value;
 				this.pageNum = 1;
@@ -107,7 +93,7 @@
 			},
 			//页码渲染
 			add(index) {
-				// console.log(index);
+				this.utils.showloading();
 				this.pageNum = index;
 				this.teacher();
 			},
@@ -117,15 +103,18 @@
 					schoolId: this.userlist.schoolId,
 					classId: this.userlist.classId,
 					selectDay: this.selectDay,
+					// selectDay: 5,
 					pageNum: this.pageNum,
-					pageSize: 2
+					pageSize: 10
 				}, 'post').then(res => {
 					console.log("res");
 					console.log(res);
+					uni.hideLoading();
 					if (res.data.userDate.list.length == 0) {
-						this.newslist = null;
+						this.newslist = '';
+						this.utils.error('暂无更多');
 					} else {
-						this.newslist = res.data;
+						this.newslist = res.data.userDate;
 						this.pageNum = res.data.userDate.pageNum;
 						this.navigatepageNums = res.data.userDate.navigatepageNums;
 						this.total = res.data.userDate.total;
@@ -134,12 +123,9 @@
 				}).catch(err => {
 					console.log("err");
 					console.log(err);
-					this.newslist = null;
+					uni.hideLoading();
+					this.newslist = '';
 					console.log(this.newslist);
-					// if(err.status==54){
-					// 	this.newslist = null;
-						
-					// }
 				});
 			},
 		}

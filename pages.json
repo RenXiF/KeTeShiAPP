@@ -138,6 +138,18 @@
             "path" : "pages/news/newsDetails/userParent",
             "style" : {}
         }
+        ,{
+            "path" : "pages/user/appSetlist",
+            "style" : {
+				"navigationBarTitleText": "APP管理"
+			}
+        }
+        ,{
+            "path" : "pages/user/setRotation",
+            "style" : {
+				"navigationBarTitleText": "轮播图设置"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

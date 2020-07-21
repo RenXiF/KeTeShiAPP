@@ -431,8 +431,8 @@ function upImage(num, params, callback) {
  * 判断登录状态
  */
 function isLogin(is) {
-	var UserInfo = uni.getStorageSync('user');
-	if (UserInfo == undefined || UserInfo == '' || UserInfo.userId == undefined || UserInfo.userId < 1) {
+	var UserInfo = uni.getStorageSync('userlist');
+	if ( UserInfo == '') {
 		return false;
 	} else {
 		return true;

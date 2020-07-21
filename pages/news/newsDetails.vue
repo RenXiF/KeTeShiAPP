@@ -10,14 +10,18 @@
 		<view v-if="userRole==3">
 			<userPrincipal :tit='tit' :icon='img' :list='newslist'></userPrincipal>
 		</view>
+		<view v-if="userRole==0" class="null">
+			<text>未登录</text>
+		</view>
 
 	</view>
 </template>
 
 <script>
 	import userParent from '../../components/newsDetails/userParent.vue' //家长模板
-	import userPrincipal from '../../components/newsDetails/userPrincipal.vue' //校方模板
 	import userTeacher from '../../components/newsDetails/userTeacher.vue' //老师模板
+	import userPrincipal from '../../components/newsDetails/userPrincipal.vue' //校方模板
+	
 	export default {
 		components: {
 			userParent,
@@ -28,28 +32,28 @@
 			return {
 				tit: null,
 				img: null,
-				userRole: 1,
-				userlist: {
-					userRole: 3
-				},
-				datal:'2020-03-15',
+				userRole: 0,
+				userlist: '',
 				newslist: '' //消息
 			};
 		},
 		onLoad(e) {
 			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
-			// this.newslist = uni.getStorageSync('newslist'); //加载用户缓存
-			// if(this.newslist == ''){
-			// 	this.teacher();
-			// }
+			this.userRole = this.userlist.userRole;
+			if(this.userlist==''){
+				this.utils.error('该用户未登录，请先登录！',()=>{this.utils.navback();});
+			}
+			if(this.userRole !=0){
+				this.option();
+			}
 			console.log(this.userlist);
-			console.log(this.newslist);
 			this.tit = e.tit;
 			this.img = e.img;
 			console.log(e);
 		},
 		onShow() {
-			this.option();
+			
+			
 		},
 		onReady() {
 			uni.setNavigationBarTitle({
@@ -58,6 +62,7 @@
 		},
 		methods: {
 			option(){
+				this.utils.showloading();
 				if(this.userRole ==1){
 					this.parent();
 				}
@@ -72,20 +77,22 @@
 			parent(){
 				this.http.getApi('/discern/getDate', {
 					schoolId: this.userlist.schoolId,
-					// classId: this.userlist.classId,
 					childId: this.userlist.childId,
-					// selectDay: 4,
 					pageNum: 1,
 					pageSize: 10
 				}, 'post').then(res => {
 					console.log("res");
 					console.log(res);
 					this.newslist = res.data;
-					uni.setStorageSync('newslist', res.data);
+					uni.hideLoading();
+					this.utils.success('加载成功！');
+					// uni.setStorageSync('newslist', res.data);
 				
 				}).catch(err => {
 					console.log("err");
 					console.log(err);
+					uni.hideLoading();
+					this.utils.error(err.msg);
 				});
 			},
 			//老师请求
@@ -93,36 +100,43 @@
 				this.http.getApi('/discern/ClassDate', {
 					schoolId: this.userlist.schoolId,
 					classId: this.userlist.classId,
-					selectDay: 4,
+					selectDay: 0,
 					pageNum: 1,
-					pageSize: 1
+					pageSize: 10
 				}, 'post').then(res => {
 					console.log("res");
 					console.log(res);
 					this.newslist = res.data;
-					uni.setStorageSync('newslist', res.data);
+					uni.hideLoading();
+					this.utils.success('加载成功！');
+					uni.setStorageSync('newslist', res.data.userDate);
 
 				}).catch(err => {
 					console.log("err");
 					console.log(err);
+					uni.hideLoading();
+					this.utils.error(err.msg);
+					
 				});
 			},
 			// 校长
 			listdate() {
 				this.http.getApi('/discern/SchoolDate', {
 					schoolid: this.userlist.schoolId,
-					selectDay:4
+					selectDay:0
 				}, 'get').then(res => {
 					console.log("res");
 					console.log(res);
-					// uni.setStorageSync('systemNews', res.data);
-					// let i = this.utils.getDate();
 					this.newslist = [res.data];
-					uni.setStorageSync('newslist', this.newslist);
+					uni.hideLoading();
+					this.utils.success('加载成功！');
+					// uni.setStorageSync('newslist', this.newslist);
 					console.log(this.newslist);
 				}).catch(err => {
 					console.log("err");
 					console.log(err);
+					uni.hideLoading();
+					this.utils.error(err.msg);
 				});
 			}
 		}

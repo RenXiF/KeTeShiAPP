@@ -54,15 +54,10 @@
 			}
 		},
 		onLoad() {
-			
-		},
-		onShow() {
-			this.openid = uni.getStorageSync('openid'); //加载用户缓存
 			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
 			console.log(this.userlist);
-			console.log(this.openid);
-
-			// this.newslist();
+		},
+		onShow() {
 		},
 		methods: {
 			newslist() {

@@ -13,9 +13,9 @@
 				</view>
 				<view class="list_block flex_columns">
 					<view class="itemImg flex_columns" @click="yulanr(imglist)">
-						<text>监控画面</text>
+						<!-- <text>监控画面</text> -->
 						<image v-for="(item2 ,index) in imglist" :src="item2" mode="widthFix" v-show="index==0"></image>
-						<text>点击图片查看更多</text>
+						<!-- <text>点击图片查看更多</text> -->
 					</view>
 					<view class="one_name flex-between">
 						<text>班级总人数：</text>
@@ -47,6 +47,10 @@
 					</view>
 				</view>
 			</view>
+		</view>
+		<view class="null flex_columns" v-if="!list" @click="doUrl('pages/news/newsDetails/userTeacher',{status:0})">
+			<text>暂无记录</text>
+			<text style="font-size: 12px;">点击这里查看历史记录</text>
 		</view>
 	</view>
 </template>

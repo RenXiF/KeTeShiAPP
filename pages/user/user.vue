@@ -14,6 +14,15 @@
 				<text class="logout" v-if="lognum == 0 && index == 0" @click="mensclick(item)">登录</text>
 			</view>
 		</view>
+		<view class="tit_list centerlay" v-if="userlist.userRole==3">
+			<view class="list_block centerlay flex-between" @click="doUrl(admin.http)">
+				<view class="tit_name flex_rows">
+					<image :src="admin.img" class="img_min" mode="widthFix"></image>
+					<text class="name_tit">{{admin.name}}</text>
+				</view>
+				<image class="img_min" src="../../static/icon/right.png" mode="widthFix"></image>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -26,6 +35,11 @@
 		data() {
 			return {
 				mens: men,
+				admin:{
+					img:'/static/mens/34.png',
+					name:'APP管理',
+					http:'/pages/user/appSetlist'
+				},
 				lognum: 0, //判断是否登录
 				userlist: '',
 				WXuser:'',

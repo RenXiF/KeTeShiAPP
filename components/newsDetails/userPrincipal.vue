@@ -17,9 +17,9 @@
 				</view>
 				<view class="list_block flex_columns">
 					<view class="itemImg flex_columns" @click="yulanr(imglist)">
-						<text>监控画面</text>
+						<!-- <text>监控画面</text> -->
 						<image v-for="(item2 ,index) in imglist" :src="item2" mode="widthFix" v-show="index==0"></image>
-						<text>点击图片查看更多</text>
+						<!-- <text>点击图片查看更多</text> -->
 					</view>
 
 					<view class="one_name flex-between">
@@ -112,6 +112,7 @@
 					console.log("err");
 					console.log(err);
 					uni.hideLoading();
+					this.utils.error(err.msg);
 				});
 			}
 		}

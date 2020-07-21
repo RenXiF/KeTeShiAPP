@@ -41,6 +41,7 @@
 		data() {
 			return {
 				titiname: "遵义市科特士校园考勤",
+				userlist:'',
 				iStatusBarHeight: 0, //状态栏高度
 				mens: [{
 						tit: "校园公告",
@@ -113,26 +114,38 @@
 			}
 		},
 		onLoad() {
+			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
+			console.log(this.userlist);
+			if(this.userlist != ''){
+				this.utils.showloading();
+				this.indexlist();
+			}
+		},
+		onShow() {
 			
 		},
 		methods: {
+			indexlist(){
+				this.http.getApi('/school/getschool', {
+					schoolid: this.userlist.schoolId
+				}, 'get').then(res => {
+					console.log("res");
+					console.log(res);
+					this.titiname = res.data.schoolName;
+					uni.hideLoading();
+				}).catch(err => {
+					console.log("err");
+					console.log(err);
+					uni.hideLoading();
+					this.utils.error(err.msg);
+				});
+			},
 			menslist(item) {
 				console.log(item);
 				this.doUrl("pages/index/indexMenslist", {
 					name: item
 				});
 			},
-			Userlist: function() {
-				console.log("执行");
-				this.http.getApi('/user/login', {
-					name: 123
-				}, 'get').then(res => {
-					console.log(res)
-					// this.datalist = res.data;
-				}).catch(err => {
-					console.log(err)
-				});
-			}
 		}
 	}
 </script>

@@ -1,10 +1,5 @@
 <script>
 	export default {
-		// created() {
-		// 	// #ifdef APP-PLUS
-		// 	plus.navigator.closeSplashscreen(); 
-		// 	// #endif 
-		// },
 		onLaunch: function() {
 			console.log('App Launch')
 		},
@@ -161,6 +156,9 @@ view {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		text{
+			color: #C0C0C0;
+		}
 		
 	}
 /* @font-face {

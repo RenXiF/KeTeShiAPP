@@ -2,7 +2,7 @@
 	<!-- 家长消息详情 -->
 	<view class="index_details flex_columns">
 		<view class="news_details flex-center flex_columns" v-for="(item,index) in list.list" v-if="list">
-			<text style="color: #C0C0C0;">{{item.contit}}</text>
+			<text style="color: #C0C0C0;" v-if="item.createdTime">{{item.createdTime.substring(0,16)}}</text>
 			<view class="details_bk flex_columns">
 				<view class="tit_bk flex-between flex-center">
 					<view class="tit_name flex-center">
@@ -17,11 +17,6 @@
 						<!-- <image v-for="(item2 ,index) in item.imglist" :src="item2" mode="widthFix" v-show="index==0"></image> -->
 						<image :src="item.imgbase64" mode="aspectFill"></image>
 						<text>点击图片查看更多</text>
-					</view>
-
-					<view class="one_name flex-between" v-if="item.createdTime">
-						<text>时间：</text>
-						<text class="wendu2">{{item.createdTime.substring(0,16)}}</text>
 					</view>
 					<view class="one_name flex-between" v-if="item.reserveFour">
 						<text>名字：</text>
@@ -39,16 +34,24 @@
 					</view>
 					<view class="one_name flex-between" v-if="item.temperature">
 						<text>体温情况：</text>
-						<text :class="[item.temperature >= du ? 'wendu' : 'wendu2']">{{item.temperature}}°</text>
+						<text :class="[item.temperature > item.standard ? 'wendu' : 'wendu2']">{{item.temperature}}°</text>
 					</view>
 				</view>
 			</view>
 		</view>
+		<view class="null" v-if="!list">
+			<text>暂无记录</text>
+		</view>
+		<cusPreviewImg ref="cusPreviewImg" :list="ImgList" />
 	</view>
 </template>
 
 <script>
+	import cusPreviewImg from '@/components/cus-previewImg/cus-previewImg.vue';
 	export default {
+		components:{
+			cusPreviewImg
+		},
 		props: {
 			tit: {
 				type: String,
@@ -67,15 +70,13 @@
 		},
 		data() {
 			return {
-				du: 38,
-				imglist: ["../../static/img/jiankong4.jpg",
-					"../../static/img/jiankong5.jpg"
-				]
+				ImgList: [],//图片预览
 			}
 		},
 		methods: {
 			yulanr(item2) {
-				this.openImg(item2);
+				this.ImgList = [item2];
+				this.$refs.cusPreviewImg.open(this.ImgList);
 			}
 		}
 	}
