@@ -5,8 +5,8 @@
 			<swiper class="imageContainer" previous-margin="50rpx" next-margin="50rpx" circular  autoplay>
 				<block v-for="(item,index) in imgList" :key="index">
 					<swiper-item class="swiperitem">
-						<image class="itemImg" :class="currentIndex == index ? 'swiperactive': 'swiperactive'" :src="item.img" lazy-load mode="scaleToFill" v-if="item.img"></image>
-						<image class="itemImg" :class="currentIndex == index ? 'swiperactive': 'swiperactive'" :src="item.imageUrl" lazy-load mode="scaleToFill"v-if="item.imageUrl"></image>
+						<image class="itemImg" :class="currentIndex == index ? 'swiperactive': 'swiperactive'" :src="item.img" lazy-load mode="aspectFill" v-if="item.img"></image>
+						<image class="itemImg" :class="currentIndex == index ? 'swiperactive': 'swiperactive'" :src="item.imageUrl" lazy-load mode="aspectFill"v-if="item.imageUrl"></image>
 					</swiper-item>
 				</block>
 			</swiper>

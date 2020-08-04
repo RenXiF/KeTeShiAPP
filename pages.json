@@ -150,6 +150,47 @@
 				"navigationBarTitleText": "轮播图设置"
 			}
         }
+        ,{
+            "path" : "pages/user/feedbackList",
+            "style" : {
+				"navigationBarTitleText": "反馈"
+			}
+        }
+        ,{
+            "path" : "pages/user/feedbackRecord",
+            "style" : {
+				"navigationBarTitleText": "反馈记录"
+			}
+        }
+        ,{
+            "path" : "pages/index/notice/noticeList",
+            "style" : {
+				// "navigationBarTitleText": "校园公告"
+				"app-plus": {
+					"titleNView": false //禁用原生导航栏
+				}
+			}
+        }
+        ,{
+            "path" : "pages/index/Timetable/Timetable",
+            "style" : {
+				"navigationBarTitleText": "课表精灵"
+			}
+        }
+        ,{
+            "path" : "pages/index/notice/noticeAdd",
+            "style" : {
+				"app-plus": {
+					"titleNView": false //禁用原生导航栏
+				}
+			}
+        }
+        ,{
+            "path" : "pages/index/notice/noticeDelete",
+            "style" : {
+				"navigationBarTitleText": "编辑公告"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

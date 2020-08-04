@@ -14,9 +14,17 @@
 		data() {
 			return {
 				list:[
-					{name:"更换首页轮播图",
+					{name:"更换轮播图",
 					img: '/static/mens/19.png',
 					http:"pages/user/setRotation"
+					},
+					{name:"添加公告",
+					img: '/static/mens/19.png',
+					http:"pages/index/notice/noticeAdd"
+					},
+					{name:"删除公告",
+					img: '/static/mens/19.png',
+					http:"pages/index/notice/noticeDelete"
 					}
 				]
 			}

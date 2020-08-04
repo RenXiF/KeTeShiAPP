@@ -49,11 +49,7 @@
 
 		},
 		methods: {
-			// onClickLeft() {
-				
-			// },
 			listdoUrl(item){
-				
 				if (item.http) {
 					this.doUrl(item.http);
 				} else{

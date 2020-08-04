@@ -29,13 +29,11 @@ export function getApi(uri, param, method, debug) {
 			data: param,
 			method: methods,
 			header: {
-				// 'content-type': methods.toString().toLocaleUpperCase() == 'POST' ? 'application/json' : 'application/x-www-form-urlencoded', // 默认值
+				'content-type': methods.toString().toLocaleUpperCase() == 'POST' ? 'application/json' : 'application/x-www-form-urlencoded', // 默认值
 				'login': userinfo ? userinfo : ''
 			},
 			dataType: "json",
 			success: function(res) {
-				
-				
 				if(uri.indexOf('http')>=0){
 					if(res.statusCode==200){
 						resolt(res.data);
@@ -75,4 +73,16 @@ export function getApi(uri, param, method, debug) {
 			}
 		})
 	})
+	// uploadFileTimeout(5000)
+}
+// 定义超时函数
+export function uploadFileTimeout(ms) {
+  let delayInfo = {
+    timeoutMsg: '上传文件超时'
+  }
+  return new Promise((resolve, reject) => {
+    setTimeout(function () {
+      reject(delayInfo)
+    }, ms)
+  })
 }

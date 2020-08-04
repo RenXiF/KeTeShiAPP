@@ -13,11 +13,14 @@
 </script>
 
 <style lang="scss">
+	@import 'common/conmon.css';
+	
 /* #ifdef H5 */
 uni-page-head {
 	display: none;
 }
 /* #endif */
+
 .status_height {
 	width: 100%;
 	height: var(--status-bar-height);
@@ -66,6 +69,15 @@ uni-page-head {
 	box-shadow: 1px 2px 6px #DAC1E7;
 	/* background: linear-gradient(45deg,#c779d0,#4bc0c8); */
 	background: linear-gradient(45deg, rgba(254, 172, 94, 0.5), rgba(199, 121, 208, 0.5), rgba(75, 192, 200, 0.5));
+}
+.redBg3{
+	box-shadow: 1px 2px 6px #4aeccc;
+	background: linear-gradient(45deg, rgba(#37ECBA, 0.5), rgba(#72AFD3, 0.5));
+}
+.redBg4{
+	color: #FFFFFF;
+	box-shadow: 1px 2px 6px #c3c3c3;
+	background: linear-gradient(45deg, rgba(#FFEFA2, 1), rgba(#FF3747, 0.7));
 }
 .status_view {
 	width: 750upx;
@@ -157,7 +169,11 @@ view {
 		align-items: center;
 		justify-content: center;
 		text{
-			color: #C0C0C0;
+			// color: #C0C0C0;
+			color: #ffffff;
+		}
+		image{
+			width: 400rpx;
 		}
 		
 	}

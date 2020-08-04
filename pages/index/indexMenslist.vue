@@ -16,13 +16,13 @@
 		},
 		onLoad(e) {
 			console.log(e);
-			this.name = e.name;
+			this.name = e;
 			// tit();
 
 		},
 		onReady() {
 			uni.setNavigationBarTitle({
-				title: this.name
+				title: this.name.tit
 			});
 		},
 		methods: {

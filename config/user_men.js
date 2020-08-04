@@ -32,7 +32,7 @@ module.exports = [
 	{
 		name: '反馈',
 		img: '/static/mens/30.png',
-		http: '/pages/user/feedback'
+		http: '/pages/user/feedbackList'
 	},
 	{
 		name: '关于',
