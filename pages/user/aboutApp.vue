@@ -54,6 +54,7 @@
 	}
 	.index_app{
 		background-color: #F8F8F8;
+		padding-bottom: 50px;
 	}
 .index_icon{
 	width: 100%;

@@ -1,5 +1,6 @@
 // export const ApiServer = 'http://120.24.28.135:8080/';
-export const ApiServer = 'http://192.168.0.116:8080/';
+// export const ApiServer = 'http://192.168.0.116:8080/';
+export const ApiServer = 'http://www.gzkts.xyz:8080/';
 /**
  * 接口调用-同步
  * @param {Object} url

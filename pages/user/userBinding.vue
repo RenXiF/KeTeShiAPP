@@ -3,23 +3,21 @@
 	<view class="index_binding flex_columns">
 		<!-- <navigation title="账号绑定" color="#ffffff" backgroundColor="#7DDBFD" leftIcon="../../static/icon/left.png" fixed="true"></navigation> -->
 		<view class="flex-center flex_jufy_center">
-			<!-- <h3>信息填写</h3> -->
-			<!-- <image src="../../static/icon/left.png" mode=""></image> -->
 		</view>
 		<view class="binding_ck flex_columns ">
 			<view class="binding_form flex_columns ">
 				<view class="one_ck  flex-center flex_rows">
 					<image src="../../static/icon/jiaose.png" mode="widthFix">
-						<view class="radio_item flex_rows" @click="radioClick(1)">
-							<view :class="[listuser.userRole == 1 ? 'active' : '', 'radio_icon']">√</view>
+						<view class="radio_item flex_rows" @click="radioClick(3)">
+							<view :class="[listuser.userRole == 3 ? 'active' : '', 'radio_icon']">√</view>
 							<text>学校</text>
 						</view>
 						<view class="radio_item flex_rows" @click="radioClick(2)">
 							<view :class="[listuser.userRole == 2 ? 'active' : '', 'radio_icon']">√</view>
 							<text>老师</text>
 						</view>
-						<view class="radio_item flex_rows" @click="radioClick(3)">
-							<view :class="[listuser.userRole == 3 ? 'active' : '', 'radio_icon']">√</view>
+						<view class="radio_item flex_rows" @click="radioClick(1)">
+							<view :class="[listuser.userRole == 1 ? 'active' : '', 'radio_icon']">√</view>
 							<text>家长</text>
 						</view>
 				</view>
@@ -37,7 +35,7 @@
 					<text style="margin-left: 15px; color: #333333;" v-if="arraylist.length<1">请先选择角色</text>
 						
 				</view>
-				<view class="one_ck  flex-center"  v-if="listuser.userRole!=1">
+				<view class="one_ck  flex-center"  v-if="listuser.userRole!=3">
 					<image src="../../static/icon/banji.png" mode="widthFix"></image>
 					<view class=""  v-if="arraylist.length>1">
 						<picker @change="bindPickerChange2" :value="index2" mode="selector" :range="array2">
@@ -46,7 +44,7 @@
 					</view>
 					<text style="margin-left: 15px; color: #333333;" v-if="arraylist.length<1">请先选择学校</text>
 				</view>
-				<view class="one_ck  flex-center" v-if="listuser.userRole==3">
+				<view class="one_ck  flex-center" v-if="listuser.userRole==1">
 					<image src="../../static/icon/haizi.png" mode="widthFix"></image><input type="text" v-model="listuser.childId"
 					 placeholder="请输入学生ID" />
 				</view>
@@ -54,11 +52,23 @@
 					<image src="../../static/icon/dianhua.png" mode="widthFix"></image><input type="number" maxlength="11" v-model="listuser.userPhone"
 					 placeholder="请输入电话号码" />
 				</view>
+				<view class="one_ck  flex-center" v-if="listuser.userRole==3">
+					<image src="../../static/icon/mima.png" mode="widthFix"></image><input type="text" :password="pass" v-model="xuexiao"
+					 placeholder="请输入学校密码" />
+					<image src="../../static/icon/yincang.png" @click="yanpass = !yanpass" mode="widthFix" v-if="yanpass"></image>
+					<image src="../../static/icon/xianshi.png" @click="yanpass = !yanpass" mode="widthFix" v-if="!yanpass"></image>
+				</view>
+				<view class="one_ck  flex-center" v-if="listuser.userRole==2">
+					<image src="../../static/icon/mima.png" mode="widthFix"></image><input type="text" :password="pass" v-model="laoshi"
+					 placeholder="请输入班级老师密码" />
+					<image src="../../static/icon/yincang.png" @click="yanpass = !yanpass" mode="widthFix" v-if="yanpass"></image>
+					<image src="../../static/icon/xianshi.png" @click="yanpass = !yanpass" mode="widthFix" v-if="!yanpass"></image>
+				</view>
 				<view class="one_ck  flex-center">
 					<image src="../../static/icon/mima.png" mode="widthFix"></image><input type="text" :password="pass" v-model="listuser.password"
 					 placeholder="请输入密码" />
-					<image src="../../static/icon/yincang.png" @click="passshow()" mode="widthFix" v-if="pass"></image>
-					<image src="../../static/icon/xianshi.png" @click="passshow()" mode="widthFix" v-if="!pass"></image>
+					<image src="../../static/icon/yincang.png" @click="pass = !pass" mode="widthFix" v-if="pass"></image>
+					<image src="../../static/icon/xianshi.png" @click="pass = !pass" mode="widthFix" v-if="!pass"></image>
 				</view>
 			</view>
 			<button style="color: #FFFFFF; margin-top: 20px;" class="logout" type="default" @click="Submission()">提交</button>
@@ -83,6 +93,10 @@
 				arraylist2:[],
 				index: 0,
 				index2: 0,
+				yanSchool:'ktsadmini123',
+				yanClass:'ktsadmini456',
+				xuexiao:'',
+				laoshi:'',
 				listuser: {
 					"userRole": 0, //角色
 					"userWxid": '', //opengID
@@ -93,7 +107,8 @@
 					"userPhone": '', //电话
 					"password": '', //
 				},
-				pass: true
+				pass: true,
+				yanpass: true
 			};
 		},
 		onLoad() {
@@ -103,7 +118,7 @@
 				this.listuser.userWxid = openid;
 			}
 			
-			this.userschoolId();
+			
 		},
 		onShow() {
 			this.user = uni.getStorageSync('userlist');
@@ -111,16 +126,12 @@
 				this.utils.error("该用户已绑定",()=>{
 					this.utils.navback();
 				})
+			}else{
+				this.userschoolId();
 			}
 		},
 		methods: {
-			passshow(){
-				if(this.pass){
-					this.pass = false;
-				}else{
-					this.pass = true;
-				}
-			},
+
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value;
@@ -137,7 +148,7 @@
 				this.listuser.userRole = index;
 			},
 			userschoolId() {
-				this.http.getApi('/school/getall', 'post').then(res => {
+				this.http.getApi('/school/getall',{} ,'get').then(res => {
 					console.log("res");
 					console.log(res);
 					this.arraylist = res.data;
@@ -174,20 +185,28 @@
 				if(this.listuser.userRole==0){
 					this.utils.error('请选择角色！');return;
 				}
+				// this.xuexiao = this.listuser.userRole!=3  ? this.yanSchool :this.xuexiao;
+				// this.laoshi = this.listuser.userRole!=2 ? this.yanClass :this.laoshi;
 				if(this.listuser.userName==''){
 					this.utils.error('请填写用户名！');return;
 				}
 				if(this.listuser.schoolId==''){
 					this.utils.error('请选择学校！');return;
 				}
-				if(this.listuser.classId=='' && this.listuser.userRole!=1){
+				if(this.listuser.classId=='' && this.listuser.userRole!=3){
 					this.utils.error('请选择班级！');return;
 				}
-				if(this.listuser.childId=='' && this.listuser.userRole!=1 && this.listuser.userRole!=2){
+				if(this.listuser.childId=='' && this.listuser.userRole==1){
 					this.utils.error('请输入学生ID！');return;
 				}
 				if(this.listuser.userPhone=='' || this.utils.checkMobile(this.listuser.userPhone)==false){
 					this.utils.error('请填写正确手机号！');return;
+				}
+				if( this.listuser.userRole==3 && this.xuexiao != this.yanSchool ){
+					this.utils.error('请输入正确学校密码！');return;
+				}
+				if( this.listuser.userRole==2 && this.laoshi != this.yanClass ){
+					this.utils.error('请输入正确班级密码！');return;
 				}
 				if(this.listuser.password==''|| this.listuser.password.length < 6){
 					this.utils.error('请输入长度不少6位密码！');return;

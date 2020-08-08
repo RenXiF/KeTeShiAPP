@@ -26,7 +26,7 @@
 						</view>
 						<view class="null flex_columns flex-center" v-if="x.key.length==0">
 							<image src="../../../static/icon/nullgogao.png" mode="widthFix"></image>
-							<text>暂无公告</text>
+							<text style="color: #FFFFFF;">暂无公告</text>
 						</view>
 						
 					</view>
@@ -169,35 +169,34 @@
 				// 图片预览
 				img64zhuanyunlan(item){
 					let listimg = [];
-					if(item.imageOne !=''){listimg[0] = item.imageOne}
-					if(item.imageTwo !=''){listimg[1] = item.imageTwo}
-					if(item.imageThree !=''){listimg[2] = item.imageThree}
+					if(item.imageOne !=null){listimg[0] = item.imageOne}
+					if(item.imageTwo !=null){listimg[1] = item.imageTwo}
+					if(item.imageThree !=null){listimg[2] = item.imageThree}
+					console.log(listimg);
 					this.openImg(listimg);
 				},
 				img64zhuanlist(item) {
-					if(item.imageOne !=''){
+					if(item.imageOne !=null){
 						this.img64zhuan(item.imageOne,(res)=>{
 							console.log(res);
 							item.imageOne = res;
 							// this.imglist[0] = res;
 						})
 					}
-					if(item.imageTwo !=''){
+					if(item.imageTwo !=null){
 						this.img64zhuan(item.imageTwo,(res)=>{
 							console.log(res);
 							item.imageTwo = res;
 							// this.imglist[1] = res;
 						})
 					}
-					if(item.imageThree !=''){
+					if(item.imageThree !=null){
 						this.img64zhuan(item.imageThree,(res)=>{
 							console.log(res);
 							item.imageThree = res;
 							// this.imglist[2] = res;
 						})
 					}
-					this.openImg()
-					// console.log(this.imglist);
 					
 				},
 				img64zhuan(base64,callback){
@@ -228,7 +227,7 @@
 							// this.noticelist = res.data.list;
 							this.swList[0].key = res.data.list;
 							// console.log(this.swList);
-							if(this.swList[0].key.length !=0 && this.swList[0].key[0].imageOne != ''){
+							if(this.swList[0].key.length !=0){
 								for (let i = 0; i < this.swList[0].key.length; i++) {
 									this.img64zhuanlist(this.swList[0].key[i]);
 									console.log("已执行转换");
@@ -258,12 +257,12 @@
 					};
 					console.log(list)
 					this.http.getApi('Mation/GetMation',list, 'post').then(res => {
-						console.log("成功！！！");
+							console.log("成功！！！");
 							console.log(res)
 							// this.noticeClass = res.data.list;
 							this.swList[1].key = res.data.list;
 							// console.log(this.swList[1].key);
-							if(this.swList[1].key.length !=0 && this.swList[1].key[0].imageOne != ''){
+							if(this.swList[1].key.length !=0){
 								for (let i = 0; i < this.swList[1].key.length; i++) {
 									this.img64zhuanlist(this.swList[1].key[i]);
 								}
@@ -287,7 +286,7 @@
 							console.log(res)
 							// this.noticeCompany = res.data;
 							this.swList[2].key = res.data;
-							if(this.swList[2].key.length !=0 && this.swList[2].key[0].imageOne != ''){
+							if(this.swList[2].key.length !=0){
 								for (let i = 0; i < this.swList[2].key.length; i++) {
 									this.img64zhuanlist(this.swList[2].key[i]);
 								}

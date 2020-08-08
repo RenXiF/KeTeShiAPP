@@ -169,8 +169,8 @@ view {
 		align-items: center;
 		justify-content: center;
 		text{
-			// color: #C0C0C0;
-			color: #ffffff;
+			color: #C0C0C0;
+			// color: #ffffff;
 		}
 		image{
 			width: 400rpx;

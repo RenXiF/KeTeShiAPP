@@ -7,14 +7,24 @@
 				// 	"titleNView": false //禁用原生导航栏
 				// },
 				"navigationBarTitleText": "首页",
-				"navigationBarBackgroundColor": "#F8F8F8"
-				// "app-plus": {
-				// 	"titleNView": {
-				// 		"type": "transparent" //透明渐变导航栏 App-nvue 2.4.4+ 支持
-				// 	}
-				// }
-
-				// "enablePullDownRefresh":true
+				"navigationBarBackgroundColor": "#F8F8F8",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"pullToRefresh": {
+						"support": true,
+						"color": "#1FC189",
+						"style": "default",
+						"contentdown": {
+							"caption": "下拉可刷新"
+						},
+						"contentover": {
+							"caption": "释放可刷新"
+						},
+						"contentrefresh": {
+							"caption": "正在刷新"
+						}
+					}
+				}
 
 			}
 		},
@@ -28,7 +38,24 @@
 		{
 			"path": "pages/news/news",
 			"style": {
-				"navigationBarTitleText": "消息"
+				"navigationBarTitleText": "消息",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"pullToRefresh": {
+						"support": true,
+						"color": "#1FC189",
+						"style": "default",
+						"contentdown": {
+							"caption": "下拉可刷新"
+						},
+						"contentover": {
+							"caption": "释放可刷新"
+						},
+						"contentrefresh": {
+							"caption": "正在刷新"
+						}
+					}
+				}
 			}
 		}, {
 			"path": "pages/user/feedback",
@@ -116,79 +143,101 @@
 		}, {
 			"path": "pages/index/indexMenslist",
 			"style": {}
-		}
-	    ,{
-            "path" : "pages/user/userBinding",
-            "style" : {
+		}, {
+			"path": "pages/user/userBinding",
+			"style": {
 				"navigationBarTitleText": "账号绑定"
 			}
-        }
-        ,{
-            "path" : "pages/news/newsDetails/userPrincipal",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/news/newsDetails/userTeacher",
-            "style" : {
+		}, {
+			"path": "pages/news/newsDetails/userPrincipal",
+			"style": {}
+		}, {
+			"path": "pages/news/newsDetails/userTeacher",
+			"style": {
 				"navigationBarTitleText": "班级管理",
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
-        }
-        ,{
-            "path" : "pages/news/newsDetails/userParent",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/user/appSetlist",
-            "style" : {
+		}, {
+			"path": "pages/news/newsDetails/userParent",
+			"style": {}
+		}, {
+			"path": "pages/user/appSetlist",
+			"style": {
 				"navigationBarTitleText": "APP管理"
 			}
-        }
-        ,{
-            "path" : "pages/user/setRotation",
-            "style" : {
+		}, {
+			"path": "pages/user/setRotation",
+			"style": {
 				"navigationBarTitleText": "轮播图设置"
 			}
-        }
-        ,{
-            "path" : "pages/user/feedbackList",
-            "style" : {
+		}, {
+			"path": "pages/user/feedbackList",
+			"style": {
 				"navigationBarTitleText": "反馈"
 			}
-        }
-        ,{
-            "path" : "pages/user/feedbackRecord",
-            "style" : {
+		}, {
+			"path": "pages/user/feedbackRecord",
+			"style": {
 				"navigationBarTitleText": "反馈记录"
 			}
-        }
-        ,{
-            "path" : "pages/index/notice/noticeList",
-            "style" : {
+		}, {
+			"path": "pages/index/notice/noticeList",
+			"style": {
 				// "navigationBarTitleText": "校园公告"
 				"app-plus": {
 					"titleNView": false //禁用原生导航栏
 				}
 			}
-        }
-        ,{
-            "path" : "pages/index/Timetable/Timetable",
-            "style" : {
+		}, {
+			"path": "pages/index/Timetable/Timetable",
+			"style": {
 				"navigationBarTitleText": "课表精灵"
 			}
-        }
-        ,{
-            "path" : "pages/index/notice/noticeAdd",
-            "style" : {
+		}, {
+			"path": "pages/index/notice/noticeAdd",
+			"style": {
 				"app-plus": {
 					"titleNView": false //禁用原生导航栏
 				}
 			}
-        }
-        ,{
-            "path" : "pages/index/notice/noticeDelete",
-            "style" : {
+		}, {
+			"path": "pages/index/notice/noticeDelete",
+			"style": {
 				"navigationBarTitleText": "编辑公告"
+			}
+		}
+
+		, {
+			"path": "pages/index/Question/Question",
+			"style": {
+				"navigationBarTitleText": "知识题库",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"pullToRefresh": {
+						"support": true,
+						"color": "#1FC189",
+						"style": "default",
+						"contentdown": {
+							"caption": "下拉可刷新"
+						},
+						"contentover": {
+							"caption": "释放可刷新"
+						},
+						"contentrefresh": {
+							"caption": "正在刷新"
+						}
+					}
+				}
+
+			}
+		}
+	    ,{
+            "path" : "pages/index/Timetable/TimetableAdd",
+            "style" : {
+				// "navigationBarTitleText": "添加课表"
+				"app-plus": {
+					"titleNView": false //禁用原生导航栏
+				}
 			}
         }
     ],
@@ -201,12 +250,12 @@
 	"tabBar": {
 		"color": "#999999",
 		"selectedColor": "#333333",
-		"height":"60px",
+		"height": "60px",
 		// "iconWidth":"30px",
-		"fontSize":"12px",
+		"fontSize": "12px",
 		// "backgroundColor": "#FFFFFF",
 		"borderStyle": "black",
-		"blurEffect":"extralight",
+		"blurEffect": "extralight",
 		"list": [{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/icon/home.png",

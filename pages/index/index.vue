@@ -42,7 +42,7 @@
 			<!-- <semp-notice-bar scrollable showType="scrollTop" :arrayText="textlist" :rows="true" round></semp-notice-bar> -->
 		</view>
 
-		<view class="dynamic flex_columns" v-for="(item , index) in 3" :key="index">
+		<view class="dynamic flex_columns" v-for="(item , index) in 1" :key="index">
 			<ArticleCard title="夏日风光" author="user" @click="loginuser()"></ArticleCard>
 			<ArticleCard title="美丽校园" author="编辑员" mode="triple" :imageList="imageList"></ArticleCard>
 			<ArticleCard title="精彩校园" author="小风" mode="single" path="../../static/img/lunbo/1.png"></ArticleCard>
@@ -73,7 +73,7 @@
 		},
 		data() {
 			return {
-				titiname: "汇川区第十二小学",
+				titiname: "科特士校园安防",
 				userlist: '',
 				iStatusBarHeight: 0, //状态栏高度
 				swList:[{
@@ -119,6 +119,7 @@
 					{
 						tit: "知识题库",
 						img: "../../static/icon/5.png",
+						http: 'pages/index/Question/Question',
 					},
 					// {
 					// 	tit: "校友风采",
@@ -196,6 +197,19 @@
 				this.companyNotice();
 			}
 		},
+		//下拉刷新
+		onPullDownRefresh() {
+			console.log('下拉刷新');
+			this.utils.showloading();
+			this.indexlist();
+			this.schoolNotice(1);
+			this.classNotice(1);
+			this.companyNotice();
+			// uni.stopPullDownRefresh();
+			this.utils.success('刷新成功！', () => {
+				uni.stopPullDownRefresh();
+			});
+		},
 		methods: {
 			indexlist() {
 				this.http.getApi('/school/getschool', {
@@ -217,9 +231,7 @@
 				if (item.http) {
 					this.doUrl(item.http);
 				} else {
-					this.doUrl("pages/index/indexMenslist", {
-						name: item
-					});
+					this.doUrl("pages/index/indexMenslist",item);
 				}
 
 			},
@@ -236,9 +248,9 @@
 						this.noticelist = res.data.list.length==0 ?[0] : res.data.list;
 						// this.swList[0].key = res.data.list;
 						uni.hideLoading();
-						this.utils.success('查询学校公告成功!',()=>{
-							// this.noticelist = [0];
-						});
+						// this.utils.success('查询学校公告成功!',()=>{
+						// 	// this.noticelist = [0];
+						// });
 					}).catch(err => {
 						console.log(err);
 						uni.hideLoading();
@@ -258,8 +270,8 @@
 						console.log(res)
 						this.noticeClass = res.data.list.length==0 ?[0] : res.data.list;
 						uni.hideLoading();
-						this.utils.success('查询班级公告成功!',()=>{
-						});
+						// this.utils.success('查询班级公告成功!',()=>{
+						// });
 					}).catch(err => {
 						console.log(err);
 						uni.hideLoading();
@@ -272,8 +284,8 @@
 						console.log(res)
 						this.noticeCompany = res.data.length==0 ?[0] : res.data.list;
 						uni.hideLoading();
-						this.utils.success('查询公司公告成功!',()=>{
-						});
+						// this.utils.success('查询公司公告成功!',()=>{
+						// });
 					}).catch(err => {
 						console.log(err);
 						uni.hideLoading();

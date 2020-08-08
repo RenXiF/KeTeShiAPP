@@ -1,6 +1,6 @@
 <template>
 	<!-- 意见反馈页面 -->
-	<view class="index flex_columns">
+	<view class="index_fee flex_columns">
 		<view style="margin-top: 20px;" v-if="Feedbacklist">
 			<view class="index_Feedback redBg4 flex_columns" v-for="(item,index) in Feedbacklist">
 				<view class="text_b text_a flex-between flex-center" v-if="item.createdTime">
@@ -79,13 +79,14 @@
 </script>
 
 <style lang="scss">
-	.index {
-		width: 100%;
+	.index_fee {
+		max-width: 100%;
 		margin: 0;
-		background-color: #f8f8f8;
+		padding: 10px;
+		// background-color: #f8f8f8;
 		.index_Feedback{
 			max-width: 100%;
-			padding: 10px;
+			padding: 0 10px;
 			margin-bottom: 20px;
 			border-radius: 15px;
 			textarea{

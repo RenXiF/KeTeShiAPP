@@ -40,13 +40,13 @@
 						img: "../../static/img/icon1.png",
 						data: "2020-7-1 8:00"
 					},
-					{
-						tit: "其他消息",
-						titf: "副标题您的孩子已平安进入校园！",
-						http: "/pages/news/newsDetails",
-						img: "../../static/img/icon4.png",
-						data: "2020-7-1 8:00"
-					}
+					// {
+					// 	tit: "其他消息",
+					// 	titf: "副标题您的孩子已平安进入校园！",
+					// 	http: "/pages/news/newsDetails",
+					// 	img: "../../static/img/icon4.png",
+					// 	data: "2020-7-1 8:00"
+					// }
 				],
 				data: [],
 				leng: 0,
@@ -58,6 +58,19 @@
 			console.log(this.userlist);
 		},
 		onShow() {
+		},
+		//下拉刷新
+		onPullDownRefresh() {
+			console.log('下拉刷新');
+			// this.utils.showloading();
+			// this.indexlist();
+			// this.schoolNotice(1);
+			// this.classNotice(1);
+			// this.companyNotice();
+			// uni.stopPullDownRefresh();
+			this.utils.success('刷新成功！', () => {
+				uni.stopPullDownRefresh();
+			});
 		},
 		methods: {
 			newslist() {

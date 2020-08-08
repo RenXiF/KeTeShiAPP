@@ -22,9 +22,13 @@
 					img: '/static/mens/19.png',
 					http:"pages/index/notice/noticeAdd"
 					},
-					{name:"删除公告",
+					{name:"编辑公告",
 					img: '/static/mens/19.png',
 					http:"pages/index/notice/noticeDelete"
+					},
+					{name:"课表管理",
+					img: '/static/mens/19.png',
+					http:"pages/index/Timetable/TimetableAdd"
 					}
 				]
 			}
