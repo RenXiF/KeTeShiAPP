@@ -42,7 +42,7 @@
 			<!-- <semp-notice-bar scrollable showType="scrollTop" :arrayText="textlist" :rows="true" round></semp-notice-bar> -->
 		</view>
 
-		<view class="dynamic flex_columns" v-for="(item , index) in 1" :key="index">
+		<view class="dynamic flex_columns" v-for="(item , index) in 1" :key="index" @click="doUrl('/pages/user/payment/orderDete')">
 			<ArticleCard title="夏日风光" author="user" @click="loginuser()"></ArticleCard>
 			<ArticleCard title="美丽校园" author="编辑员" mode="triple" :imageList="imageList"></ArticleCard>
 			<ArticleCard title="精彩校园" author="小风" mode="single" path="../../static/img/lunbo/1.png"></ArticleCard>
@@ -73,7 +73,7 @@
 		},
 		data() {
 			return {
-				titiname: "科特士校园安防",
+				titiname: "智悦校园安防",
 				userlist: '',
 				iStatusBarHeight: 0, //状态栏高度
 				swList:[{
@@ -187,8 +187,6 @@
 		onLoad() {
 			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
 			console.log(this.userlist);
-		},
-		onShow() {
 			if (this.userlist != '') {
 				this.utils.showloading();
 				this.indexlist();
@@ -196,6 +194,9 @@
 				this.classNotice(1);
 				this.companyNotice();
 			}
+		},
+		onShow() {
+			
 		},
 		//下拉刷新
 		onPullDownRefresh() {
@@ -275,7 +276,7 @@
 					}).catch(err => {
 						console.log(err);
 						uni.hideLoading();
-						this.utils.error(err.msg);
+						// this.utils.error(err.msg);
 					});
 			},
 			// 获取公司公告

@@ -240,10 +240,29 @@
 				}
 			}
         }
+        ,{
+            "path" : "pages/user/payment/payment",
+            "style" : {
+				"navigationBarTitleText": "支付确定",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+        }
+        ,{
+            "path" : "pages/user/payment/orderDete",
+            "style" : {
+				"navigationBarTitleText": "服务开通"
+			}
+        }
+        ,{
+            "path" : "pages/user/payment/orderTit",
+            "style" : {
+				"navigationBarTitleText": "服务说明"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "智悦校园安防",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},

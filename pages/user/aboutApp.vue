@@ -11,13 +11,13 @@
 		
 		<view class="index_contact flex-center flex_columns">
 			<view class="contact_one flex-center">
-				<text>服务条款</text>
-				<view class="boder_xia"></view>
-				<text>官网</text>
-				<view class="boder_xia"></view>
+				<!-- <text>服务条款</text>
+				<view class="boder_xia"></view> -->
+				<!-- <text>官网</text>
+				<view class="boder_xia"></view> -->
 				<text @click="callPhone(phone)">客服热线：{{phone}}</text>
 			</view>
-			<text class="contact_twe">版权所有：科特士科技有限公司</text>
+			<text class="contact_twe">科特士科技有限公司 版权所有</text>
 		</view>
 	</view>
 </template>
@@ -34,7 +34,13 @@
 					{name:"推荐给好友",
 					http:"../../pages/index"
 					},
-					{name:"协议",
+					{name:"特别声明",
+					http:"../../pages/index"
+					},
+					{name:"使用帮助",
+					http:"../../pages/index"
+					},
+					{name:"服务条款",
 					http:"../../pages/index"
 					}
 				]

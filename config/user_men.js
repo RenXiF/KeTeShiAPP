@@ -9,6 +9,11 @@ module.exports = [
 		img: '/static/mens/13.png',
 		http: '/pages/user/userBinding'
 	},
+	{
+		name: '服务开通',
+		img: '/static/mens/20.png',
+		http: '/pages/user/payment/orderTit'
+	},
 	// {
 	// 	name: '校园考勤',
 	// 	img: '/static/mens/20.png',

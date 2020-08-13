@@ -11,11 +11,10 @@ const utils = require("./common/util.js");
 
 Vue.prototype.http = http;
 Vue.prototype.utils = utils;
-Vue.prototype.url = 'http://192.168.0.116:8080/';
 /**
  * 客服电话
  */
-Vue.prototype.phone = '123456789';
+Vue.prototype.phone = '0851-2323-8398';
 
 /**
  * 高德地图SDK
