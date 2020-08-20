@@ -1,7 +1,7 @@
 <template>
 	<view class="index_news flex_columns">
 		<view class="news_block flex_columns" v-show="list">
-			<view class="one_bk flex-between flex-center" v-for="(item , index) in list" :key="index" @click="doUrl(item.http,{tit:item.tit,img:item.img})">
+			<view class="one_bk flex-between flex-center" v-for="(item , index) in list" :key="index" @click="httpdo(item)">
 				<view class="dian"></view>
 				<view class="one_img flex-center flex_jufy_center">
 					<image :src="item.img" mode="widthFix"></image>
@@ -38,7 +38,7 @@
 						titf: "进校记录！",
 						http: "/pages/news/newsDetails",
 						img: "../../static/img/icon1.png",
-						data: "2020-7-1 8:00"
+						data: this.utils.getDate()+"-" +this.utils.getTime()
 					},
 					// {
 					// 	tit: "其他消息",
@@ -62,59 +62,31 @@
 		//下拉刷新
 		onPullDownRefresh() {
 			console.log('下拉刷新');
-			// this.utils.showloading();
-			// this.indexlist();
-			// this.schoolNotice(1);
-			// this.classNotice(1);
-			// this.companyNotice();
-			// uni.stopPullDownRefresh();
 			this.utils.success('刷新成功！', () => {
+				this.list[0].data = this.utils.getDate()+"-" +this.utils.getTime()
 				uni.stopPullDownRefresh();
 			});
 		},
 		methods: {
-			newslist() {
-				console.log('已执行');
-				this.teacher();
-				// if(this.userlist.userRole == 2){
-				// 	this.teacher();
-				// }
-			},
-			
-			//老师请求
-			teacher() {
-				this.http.getApi('/discern/ClassDate', {
-					schoolId: this.userlist.schoolId,
-					classId: this.userlist.classId,
-					selectDay: 4,
-					pageNum:1,
-					pageSize:10
-				}, 'post').then(res => {
-					console.log("res");
-					console.log(res);
-					uni.setStorageSync('newslist', res.data);
-				}).catch(err => {
-					console.log("err");
-					console.log(err);
-				});
-			},
-			// 校长
-			listdate() {
-				this.http.getApi('discern/SchoolDate', {
-					schoolid: this.userlist.schoolId
-				}, 'get').then(res => {
-					console.log("res");
-					console.log(res);
-					uni.setStorageSync('systemNews', res.data);
-					let i = this.utils.getDate();
-					this.data = [res.data];
-					uni.setStorageSync('newslist', this.data);
-					console.log(this.data);
-				}).catch(err => {
-					console.log("err");
-					console.log(err);
-				});
+			httpdo(item){
+				if (this.userlist.status == 1 || this.userlist.userRole !=1) {
+					this.doUrl(item.http,{tit:item.tit,img:item.img})
+				} else{
+					var _this = this;
+					uni.showModal({
+					    title: '未开通服务',
+					    content: '请先开通服务，才能使用该功能！是否前往？',
+					    success: function (res) {
+					        if (res.confirm) {
+					            _this.doUrl('/pages/user/payment/orderTit');
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+				}
 			}
+			
 		}
 	}
 </script>

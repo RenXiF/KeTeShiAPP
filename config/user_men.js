@@ -14,6 +14,11 @@ module.exports = [
 		img: '/static/mens/20.png',
 		http: '/pages/user/payment/orderTit'
 	},
+	{
+		name: '我的订单',
+		img: '/static/mens/27.png',
+		http: '/pages/order/order'
+	},
 	// {
 	// 	name: '校园考勤',
 	// 	img: '/static/mens/20.png',

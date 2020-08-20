@@ -158,7 +158,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   data: function data() {
@@ -171,31 +170,39 @@ var _default =
         titf: "进校记录！",
         http: "/pages/news/newsDetails",
         img: "../../static/img/icon1.png",
-        data: "2020-7-1 8:00" },
+        data: "2020-7-1 8:00" }
 
-      {
-        tit: "其他消息",
-        titf: "副标题您的孩子已平安进入校园！",
-        http: "/pages/news/newsDetails",
-        img: "../../static/img/icon4.png",
-        data: "2020-7-1 8:00" }],
-
-
+      // {
+      // 	tit: "其他消息",
+      // 	titf: "副标题您的孩子已平安进入校园！",
+      // 	http: "/pages/news/newsDetails",
+      // 	img: "../../static/img/icon4.png",
+      // 	data: "2020-7-1 8:00"
+      // }
+      ],
       data: [],
       leng: 0,
       openid: '' };
 
   },
   onLoad: function onLoad() {
-
-  },
-  onShow: function onShow() {
-    this.openid = uni.getStorageSync('openid'); //加载用户缓存
     this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
     console.log(this.userlist);
-    console.log(this.openid);
-
-    // this.newslist();
+  },
+  onShow: function onShow() {
+  },
+  //下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    console.log('下拉刷新');
+    // this.utils.showloading();
+    // this.indexlist();
+    // this.schoolNotice(1);
+    // this.classNotice(1);
+    // this.companyNotice();
+    // uni.stopPullDownRefresh();
+    this.utils.success('刷新成功！', function () {
+      uni.stopPullDownRefresh();
+    });
   },
   methods: {
     newslist: function newslist() {
@@ -207,70 +214,34 @@ var _default =
     },
 
     //老师请求
-    teacher: function teacher() {var _this = this;
-      uni.request({
-        url: this.url + 'discern/ClassDate', //仅为示例，并非真实接口地址。
-        data: {
-          schoolId: this.userlist.schoolId,
-          classId: this.userlist.classId,
-          selectDay: 1,
-          pageNum: 1,
-          pageSize: 10 },
-
-        method: 'POST',
-        header: {
-          'login': this.openid //自定义请求头信息
-        },
-        success: function success(res) {
-          console.log('正确');
-          console.log(res);
-          uni.setStorageSync('newslist', _this.res.data);
-
-          // this.text = 'request success';
-        },
-        fail: function fail(err) {
-          console.log('错误');
-          console.log(err);
-        } });
-
-
-      // this.http.getApi('/discern/ClassDate', {
-      // 	// schoolId: this.userlist.schoolId,
-      // 	// classId: this.userlist.classId,
-      // 	schoolId: 1,
-      // 	classId: 1,
-      // 	selectDay: 2,
-      // 	pageNum:1,
-      // 	pageSize:10
-      // }, 'post').then(res => {
-      // 	console.log("res");
-      // 	if(Object.prototype.toString.call(res) !== '[object Object]'){
-      // 		console.log('执行if');
-      // 		res=JSON.parse(res);
-      // 		console.log(res);
-      // 		console.log(res.data);
-
-      // 	}
-      // 	console.log('不执行if');
-      // 	console.log(res);
-      // 	console.log('打印成功！！！！！！！');
-      // }).catch(err => {
-      // 	console.log("err");
-      // 	console.log(err);
-      // });
+    teacher: function teacher() {
+      this.http.getApi('/discern/ClassDate', {
+        schoolId: this.userlist.schoolId,
+        classId: this.userlist.classId,
+        selectDay: 4,
+        pageNum: 1,
+        pageSize: 10 },
+      'post').then(function (res) {
+        console.log("res");
+        console.log(res);
+        uni.setStorageSync('newslist', res.data);
+      }).catch(function (err) {
+        console.log("err");
+        console.log(err);
+      });
     },
     // 校长
-    listdate: function listdate() {var _this2 = this;
+    listdate: function listdate() {var _this = this;
       this.http.getApi('discern/SchoolDate', {
         schoolid: this.userlist.schoolId },
       'get').then(function (res) {
         console.log("res");
         console.log(res);
         uni.setStorageSync('systemNews', res.data);
-        var i = _this2.utils.getDate();
-        _this2.data = [res.data];
-        uni.setStorageSync('newslist', _this2.data);
-        console.log(_this2.data);
+        var i = _this.utils.getDate();
+        _this.data = [res.data];
+        uni.setStorageSync('newslist', _this.data);
+        console.log(_this.data);
       }).catch(function (err) {
         console.log("err");
         console.log(err);

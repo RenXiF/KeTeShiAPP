@@ -1,6 +1,6 @@
 <template>
 	<!-- 订单描述页面 -->
-	<view class="flex_columns order_tit flex_columns">
+	<view class="flex_columns order_tit flex_columns" >
 		<view class="block_tit flex_columns flex-center">
 			<view class="name_tit flex-between flex-center">
 				服务说明
@@ -8,11 +8,16 @@
 			<view class="name_ck flex_columns" v-for="(item ,index) in list" :key="index">
 				<text>{{index+1}},{{item.name}}</text>
 				<text style="color: #535353;">{{item.tit}}</text>
+				
+			</view>
+			<view class="flex-between" style="width: 100%;" v-if="userlist.status == 1">
+				<text>到期时间</text>
+				<text>{{userlist.endtime.substring(0,16)}}</text>
 			</view>
 			
 		</view>
-		<view class="button_ck flex-center flex_jufy_center" @click="doUrl('/pages/user/payment/orderDete')">
-			<text class="flex_jufy_center">立即开通</text>
+		<view class="button_ck flex-center flex_jufy_center" @click="judgeOrder()">
+			<text class="flex_jufy_center">{{tit}}</text>
 		</view>
 		
 	</view>
@@ -23,6 +28,10 @@
 		data() {
 			return {
 				screenHeight:0,
+				pageNum:1,
+				userlist:'',
+				tit:'立即开通',
+				endtime:'',
 				list:[
 					{
 						name:'进出校园图文提醒',
@@ -44,25 +53,53 @@
 			}
 		},
 		onLoad() {
-			
+			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
+			console.log(this.userlist);
+			this.userlist.status == 1? this.tit='续费服务':this.tit='立即开通';
+			// this.judgeOrder();
 		},
 		onReady() {
 			uni.getSystemInfo({
 			    success: function (res) {
 					console.log(res);
-			        console.log(res.model);
-			        console.log(res.pixelRatio);
-			        console.log(res.windowWidth);
-			        console.log(res.windowHeight);
-			        console.log(res.language);
-			        console.log(res.version);
-			        console.log(res.platform);
 					this.screenHeight = res.screenHeight;
 			    }
 			});
 		},
 		methods: {
-			
+			// 获取全部进订单
+			judgeOrder() {
+				this.utils.showloading();
+				this.http.getApi('order/getMyOrder', {
+						UsrId: this.userlist.userId,
+						status:0,
+						pageNum: this.pageNum,
+						pageSize: 6
+					}, 'get').then(res => {
+						uni.hideLoading();
+						console.log(res);
+						var _this = this;
+						if(res.data.list.length!=0){
+							uni.showModal({
+							    title: '订单已存在',
+							    content: '您已提交过订单，是否前往订单？',
+							    success: function (res) {
+							        if (res.confirm) {
+							            console.log('用户点击确定');
+										_this.doUrl('/pages/order/order');
+							        } else if (res.cancel) {
+							            console.log('用户点击取消');
+							        }
+							    }
+							});
+						}else{
+							_this.doUrl('/pages/user/payment/orderDete');
+						}
+					}).catch(err => {
+						uni.hideLoading();
+						console.log(err);
+					});
+			},
 		}
 	}
 </script>
@@ -84,7 +121,7 @@
 .order_tit{
 	max-width: 100%;
 	// padding: 30rpx;
-	min-height: 1200rpx;
+	padding-bottom: 500rpx;
 	background-color: #F8F8F8;
 	.button_ck{
 		width: 100%;

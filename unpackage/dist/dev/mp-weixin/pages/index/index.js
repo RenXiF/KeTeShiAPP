@@ -102,7 +102,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
+var components = {
+  sempNoticeBar: function() {
+    return __webpack_require__.e(/*! import() | components/semp-notice-bar/semp-notice-bar */ "components/semp-notice-bar/semp-notice-bar").then(__webpack_require__.bind(null, /*! @/components/semp-notice-bar/semp-notice-bar.vue */ 275))
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -138,7 +142,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var Rotation = function Rotation() {__webpack_require__.e(/*! require.ensure | components/swiper-Rotation/swiper-Rotation */ "components/swiper-Rotation/swiper-Rotation").then((function () {return resolve(__webpack_require__(/*! ../../components/swiper-Rotation/swiper-Rotation.vue */ 176));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ArticleCard = function ArticleCard() {__webpack_require__.e(/*! require.ensure | components/article-card/article-card */ "components/article-card/article-card").then((function () {return resolve(__webpack_require__(/*! @/components/article-card/article-card.vue */ 183));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var Rotation = function Rotation() {__webpack_require__.e(/*! require.ensure | components/swiper-Rotation/swiper-Rotation */ "components/swiper-Rotation/swiper-Rotation").then((function () {return resolve(__webpack_require__(/*! ../../components/swiper-Rotation/swiper-Rotation.vue */ 282));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ArticleCard = function ArticleCard() {__webpack_require__.e(/*! require.ensure | components/article-card/article-card */ "components/article-card/article-card").then((function () {return resolve(__webpack_require__(/*! @/components/article-card/article-card.vue */ 289));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var sempNoticeBar = function sempNoticeBar() {__webpack_require__.e(/*! require.ensure | components/semp-notice-bar/semp-notice-bar */ "components/semp-notice-bar/semp-notice-bar").then((function () {return resolve(__webpack_require__(/*! @/components/semp-notice-bar/semp-notice-bar.vue */ 275));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -165,13 +169,46 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//动态
-var _default = {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
   components: {
     // navigation,
     // Calendar,
     Rotation: Rotation,
-    ArticleCard: ArticleCard },
+    ArticleCard: ArticleCard,
+    sempNoticeBar: sempNoticeBar },
 
   onReady: function onReady() {
     uni.setNavigationBarTitle({
@@ -180,10 +217,34 @@ var _default = {
   },
   data: function data() {
     return {
-      titiname: "遵义市科特士校园考勤",
+      titiname: "智悦校园安防",
+      userlist: '',
       iStatusBarHeight: 0, //状态栏高度
+      swList: [{
+        key: ['暂无通知'] },
+
+      {
+        key: ['暂无通知'] },
+
+      {
+        key: ['暂无通知'] }],
+
+
+      noticelist: ['暂无通知'], //学校公告数据
+      noticeClass: ['暂无通知'], //学校班级数据
+      noticeCompany: ['暂无通知'], //学校公司数据
+      pageNum: 1,
+      pageSize: 3,
+
+      // icon:'sound',
+      textlist: [
+      '新版震撼发部了！',
+      '人气爆红，发布日流量超过十万',
+      '36氪热文榜推荐、CSDN公号推荐分享文章'],
+
       mens: [{
         tit: "校园公告",
+        http: 'pages/index/notice/noticeList',
         img: "../../static/icon/1.png" },
 
       {
@@ -195,34 +256,36 @@ var _default = {
         img: "../../static/icon/3.png" },
 
       {
-        tit: "精彩阅读",
+        tit: "课表精灵",
+        http: 'pages/index/Timetable/Timetable',
         img: "../../static/icon/4.png" },
 
       {
-        tit: "最新知识",
-        img: "../../static/icon/5.png" },
+        tit: "知识题库",
+        img: "../../static/icon/5.png",
+        http: 'pages/index/Question/Question' }
 
-      {
-        tit: "校友风采",
-        img: "../../static/icon/6.png" },
-
-      {
-        tit: "学校食堂",
-        img: "../../static/icon/7.png" },
-
-      {
-        tit: "学生活动",
-        img: "../../static/icon/8.png" },
-
-      {
-        tit: "课外知识",
-        img: "../../static/icon/9.png" },
-
-      {
-        tit: "精彩演讲",
-        img: "../../static/icon/10.png" }],
-
-
+      // {
+      // 	tit: "校友风采",
+      // 	img: "../../static/icon/6.png",
+      // },
+      // {
+      // 	tit: "学校食堂",
+      // 	img: "../../static/icon/7.png",
+      // },
+      // {
+      // 	tit: "学生活动",
+      // 	img: "../../static/icon/8.png",
+      // },
+      // {
+      // 	tit: "课外知识",
+      // 	img: "../../static/icon/9.png",
+      // },
+      // {
+      // 	tit: "精彩演讲",
+      // 	img: "../../static/icon/10.png",
+      // },
+      ],
       listimg: [{
         img: "../../static/img/lunbo/1.png" },
 
@@ -239,6 +302,19 @@ var _default = {
         img: "../../static/img/lunbo/5.png" }],
 
 
+      listimg2: [{
+        img: "../../static/img/lunbo/6.jpg" },
+
+      {
+        img: "../../static/img/lunbo/3.jpg" },
+
+      {
+        img: "../../static/img/lunbo/4.jpg" },
+
+      {
+        img: "../../static/img/lunbo/5.jpg" }],
+
+
       imageList: [{
         path: '../../static/img/lunbo/4.png' },
 
@@ -253,24 +329,112 @@ var _default = {
 
   },
   onLoad: function onLoad() {
+    this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
+    console.log(this.userlist);
+    if (this.userlist != '') {
+      this.utils.showloading();
+      this.indexlist();
+      this.schoolNotice(1);
+      this.classNotice(1);
+      this.companyNotice();
+    }
+  },
+  onShow: function onShow() {
 
   },
+  //下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    console.log('下拉刷新');
+    this.utils.showloading();
+    this.indexlist();
+    this.schoolNotice(1);
+    this.classNotice(1);
+    this.companyNotice();
+    // uni.stopPullDownRefresh();
+    this.utils.success('刷新成功！', function () {
+      uni.stopPullDownRefresh();
+    });
+  },
   methods: {
+    indexlist: function indexlist() {var _this = this;
+      this.http.getApi('/school/getschool', {
+        schoolid: this.userlist.schoolId },
+      'get').then(function (res) {
+        console.log("res");
+        console.log(res);
+        _this.titiname = res.data.schoolName;
+        uni.hideLoading();
+      }).catch(function (err) {
+        console.log("err");
+        console.log(err);
+        uni.hideLoading();
+        _this.utils.error(err.msg);
+      });
+    },
     menslist: function menslist(item) {
       console.log(item);
-      this.doUrl("pages/index/indexMenslist", {
-        name: item });
+      if (item.http) {
+        this.doUrl(item.http);
+      } else {
+        this.doUrl("pages/index/indexMenslist", item);
+      }
 
     },
-    Userlist: function Userlist() {
-      console.log("执行");
-      this.http.getApi('/user/login', {
-        name: 123 },
-      'get').then(function (res) {
+    // 获取学校公告
+    schoolNotice: function schoolNotice(pageNum) {var _this2 = this;
+      var list = {
+        schoolId: this.userlist.schoolId,
+        pageNum: pageNum,
+        pageSize: this.pageSize };
+
+      console.log(list);
+      this.http.getApi('Mation/GetMation', list, 'post').then(function (res) {
         console.log(res);
-        // this.datalist = res.data;
+        _this2.noticelist = res.data.list.length == 0 ? [0] : res.data.list;
+        // this.swList[0].key = res.data.list;
+        uni.hideLoading();
+        // this.utils.success('查询学校公告成功!',()=>{
+        // 	// this.noticelist = [0];
+        // });
       }).catch(function (err) {
         console.log(err);
+        uni.hideLoading();
+        _this2.utils.error(err.msg);
+      });
+    },
+    // 获取班级公告
+    classNotice: function classNotice(pageNum) {var _this3 = this;
+      var list = {
+        schoolId: this.userlist.schoolId,
+        classId: this.userlist.classId,
+        pageNum: pageNum,
+        pageSize: this.pageSize };
+
+      console.log(list);
+      this.http.getApi('Mation/GetMation', list, 'post').then(function (res) {
+        console.log(res);
+        _this3.noticeClass = res.data.list.length == 0 ? [0] : res.data.list;
+        uni.hideLoading();
+        // this.utils.success('查询班级公告成功!',()=>{
+        // });
+      }).catch(function (err) {
+        console.log(err);
+        uni.hideLoading();
+        // this.utils.error(err.msg);
+      });
+    },
+    // 获取公司公告
+    companyNotice: function companyNotice() {var _this4 = this;
+      this.http.getApi('Mation/GetGongsi', {}, 'get').then(function (res) {
+        console.log(res);
+        _this4.noticeCompany = res.data.length == 0 ? [0] : res.data.list;
+        uni.hideLoading();
+        // this.utils.success('查询公司公告成功!',()=>{
+        // });
+      }).catch(function (err) {
+        console.log(err);
+        uni.hideLoading();
+        _this4.utils.error(err.msg);
       });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

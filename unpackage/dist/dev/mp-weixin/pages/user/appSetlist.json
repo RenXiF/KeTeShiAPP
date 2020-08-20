@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "APP管理",
+  "usingComponents": {
+    "list": "/components/list/list"
+  }
+}

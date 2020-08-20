@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "轮播图设置",
+  "usingComponents": {
+    "rotation": "/components/swiper-Rotation/swiper-Rotation"
+  }
+}

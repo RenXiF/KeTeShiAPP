@@ -48,11 +48,11 @@ export function getApi(uri, param, method, debug) {
 				// console.log(res);
 				// console.log(JSON.parse(res.data));res.statusCode == 200
 				// console.log(JSON.stringify(res))
-				if (res.data.status == 0) {
+				if (res.statusCode == 200 && res.data.status == 0 || res.data.code == 0) {
 					resolt(res.data);
 					return;
 				}
-				if (res.data.status != 0) {
+				if (res.statusCode == 200 && res.data.status != 0 || res.data.code != 0) {
 					retject(res.data);
 				}
 				uni.hideLoading();

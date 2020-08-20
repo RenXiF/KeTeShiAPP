@@ -1,0 +1,38 @@
+
+.show-box {
+	width: 96%;
+	overflow: hidden;
+	/* padding:0 1%; */
+}
+.text-box {
+	white-space: nowrap;
+	line-height: 70rpx;
+	padding: 0rpx 0;
+}
+.icon {
+	padding-right: 12rpx;
+	/* padding-top:28upx; */
+}
+.no-icon {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+.show-info {
+	overflow: hidden;
+	max-height: 70rpx;
+}
+.scroll-box {
+	width: 94%;
+	overflow: hidden;
+	line-height: 70rpx;
+	height: 70rpx;
+	/* line-height: 76upx; */
+}
+.round {
+	border-radius: 25rpx;
+}
+.text-box.text-rows {
+	white-space: normal;
+}
+

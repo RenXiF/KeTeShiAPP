@@ -1,17 +1,19 @@
 <template>
 	<view class="index_user flex_columns">
-		<view class="tit_list centerlay" v-for="(item,index) in mens" :key="index">
+		<view class="tit_list centerlay" v-for="(item,index) in mens" :key="index" v-if="mens">
 			<view class="list_block centerlay flex-between">
-				<view class="tit_name flex_rows" @click="mensclick(item)">
+				<view class="tit_name flex_rows " @click="mensclick(item)">
 					<image :src="item.img" :class="lognum == 2 && index == 0 ? 'img_max': 'img_min'" mode="widthFix"  v-if="lognum == 2"></image>
 					<image :src="item.img" :class="lognum == 1 && index == 0 ? 'img_maxs': 'img_min'" mode="widthFix" v-else></image>
 					<text class="name_tit">{{item.name}}</text>
 					<text class="sutit" v-if="item.sutit">{{item.sutit}}</text>
 				</view>
-				<image v-if="index != 0" class="img_min" src="../../static/icon/right.png" mode="widthFix" @click="mensclick(item)"></image>
-				<text class="logout" v-if="lognum == 2 && index == 0" @click="logout(item)">退出登录</text>
-				<text class="logout" v-if="lognum == 1 && index == 0" @click="logout(item)">退出登录</text>
-				<text class="logout" v-if="lognum == 0 && index == 0" @click="mensclick(item)">登录</text>
+				<view class=" flex-center flex_row_reverse" style="min-width: 30%;"@click="mensclick(item)">
+					<image v-if="index != 0" class="img_min " src="../../static/icon/right.png" mode="widthFix"></image>
+					<text class="logout" v-if="lognum == 2 && index == 0">退出登录</text>
+					<text class="logout" v-if="lognum == 1 && index == 0">退出登录</text>
+					<text class="logout" v-if="lognum == 0 && index == 0" >登录</text>
+				</view>
 			</view>
 		</view>
 		<view class="tit_list centerlay" v-if="userlist.userRole==3">
@@ -20,7 +22,9 @@
 					<image :src="admin.img" class="img_min" mode="widthFix"></image>
 					<text class="name_tit">{{admin.name}}</text>
 				</view>
-				<image class="img_min" src="../../static/icon/right.png" mode="widthFix"></image>
+				<view class=" flex-center flex_row_reverse" style="min-width: 30%;">
+					<image class="img_min" src="../../static/icon/right.png" mode="widthFix"></image>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -53,12 +57,23 @@
 		onShow() {
 			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
 			this.WXuser = uni.getStorageSync('WXuser'); //加载用户缓存
+			let openid = uni.getStorageSync('openid'); //加载openid
+			let WXopenid = uni.getStorageSync('WXopenid'); //加载WXopenid
 			console.log(this.userlist);
-			if(this.userlist){
-				this.mens[0].name = this.userlist.userWxid.length > 12 ? this.WXuser.nickName : this.userlist.userName;
-				this.mens[0].img = this.userlist.userWxid.length > 12 ? this.WXuser.avatarUrl : this.Phoneimg;
-				this.lognum = this.userlist.userWxid.length > 12 ? 2 : 1;
+			console.log(this.WXuser);
+			console.log(openid);
+			console.log(WXopenid);
+			if(openid != ''){
+				this.mens[0].name = this.userlist.userName;
+				this.mens[0].img = this.Phoneimg;
+				this.lognum = 1;
 			}
+			if(WXopenid != ''){
+				this.mens[0].name =  this.WXuser.nickName;
+				this.mens[0].img =  this.WXuser.avatarUrl;
+				this.lognum = 2;
+			}
+			this.userlist.status == 1 || this.userlist.userRole != 1 ? this.mens[2].name='已开通服务':this.mens[2].name;
 			this.loginins();
 		},
 		methods: {
@@ -84,13 +99,23 @@
 					if (this.userlist != '') {
 						if (this.lognum == 0) {
 							this.utils.showloading("登录中");
-							item.name = this.userlist.userWxid.length > 12 ? this.WXuser.nickName : this.userlist.userName;
-							item.img = this.userlist.userWxid.length > 12 ? this.WXuser.avatarUrl : this.Phoneimg;
-							this.lognum = this.userlist.userWxid.length > 12 ? 2 : 1;
+							let openid = uni.getStorageSync('openid'); //加载openid
+							let WXopenid = uni.getStorageSync('WXopenid'); //加载WXopenid
+							if( openid != ''){
+								this.mens[0].name = this.userlist.userName;
+								this.mens[0].img = this.Phoneimg;
+								this.lognum = 1;
+							}
+							if(WXopenid != ''){
+								this.mens[0].name =  this.WXuser.nickName;
+								this.mens[0].img =  this.WXuser.avatarUrl;
+								this.lognum = 2;
+							}
 							uni.hideLoading();
 							this.utils.success("登录成功！");
+						}else{
+							this.logout(item);
 						}
-						return;
 					} else {
 						// this.loginXZ(item);
 						this.doUrl('pages/login/login');
@@ -132,7 +157,7 @@
 <style>
 	.index_user {
 		width: 100%;
-		min-height: 630px;
+		min-height: 100%;
 		background-color: #F1F3F4;
 	}
 

@@ -45,6 +45,10 @@
 				</view>
 			</view>
 		</view>
+		<view class="null flex_columns flex-center" v-if="!list">
+			<image src="../../static/icon/nullgogao.png" mode="widthFix"></image>
+			<text style="color: #868686;">暂无记录</text>
+		</view>
 	</view>
 </template>
 

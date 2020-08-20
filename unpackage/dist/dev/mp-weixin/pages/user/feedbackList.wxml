@@ -1,0 +1,1 @@
+<view class="index_security"><list vue-id="5e2105e8-1" listdata="{{list}}" bind:__l="__l"></list></view>

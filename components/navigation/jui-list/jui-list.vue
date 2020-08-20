@@ -1,14 +1,14 @@
 <template>
 	<view>
-		<view class="status_bar-fixed">
+		<view class="status_bar-fixed" :style="{background:background}"  v-if="heighST">
 			
 		</view>
-		<view class="status_bar">
+		<view class="status_height" v-if="heighST">
 			
 		</view>
 		<!-- 自定义导航栏 -->
 		<scroll-view scroll-with-animation :scroll-into-view="goNav" scroll-x style="width: 750rpx;position: fixed; 
-		background-color: #F1F1F1;z-index: 10;padding:" :style="{'padding-left':SrPadding+'px',height:SrHeight,
+		z-index: 10;padding:" :style="{background:background,'padding-left':SrPadding+'px',height:SrHeight,
 		'padding-right':SrPadding+'px','padding-top':dhTop+'px'}" >
 			<view class="flex-column-start" >
 				<view class="flex-row-start" >
@@ -50,11 +50,19 @@
 	export default {
 		components: {refresh},
 		name:"pui-List",
-		props:{		
+		props:{
 			dhTop:{
 				type:Number,
 				default:10
 			},
+			heighST:{
+				type:Boolean,
+				default:true
+			},
+			background:{
+				type:String,
+				default:"#F1F1F1"
+			},	
 			navHoverClass:{
 				type:String,
 				default:"my-title"

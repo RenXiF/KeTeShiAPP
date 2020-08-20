@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "jui-list": "/components/navigation/jui-list/jui-list"
+  }
+}

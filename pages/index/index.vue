@@ -42,7 +42,7 @@
 			<!-- <semp-notice-bar scrollable showType="scrollTop" :arrayText="textlist" :rows="true" round></semp-notice-bar> -->
 		</view>
 
-		<view class="dynamic flex_columns" v-for="(item , index) in 1" :key="index" @click="doUrl('/pages/user/payment/orderDete')">
+		<view class="dynamic flex_columns" v-for="(item , index) in 1" :key="index">
 			<ArticleCard title="夏日风光" author="user" @click="loginuser()"></ArticleCard>
 			<ArticleCard title="美丽校园" author="编辑员" mode="triple" :imageList="imageList"></ArticleCard>
 			<ArticleCard title="精彩校园" author="小风" mode="single" path="../../static/img/lunbo/1.png"></ArticleCard>
@@ -190,6 +190,7 @@
 			if (this.userlist != '') {
 				this.utils.showloading();
 				this.indexlist();
+				this.getTu();
 				this.schoolNotice(1);
 				this.classNotice(1);
 				this.companyNotice();
@@ -203,6 +204,7 @@
 			console.log('下拉刷新');
 			this.utils.showloading();
 			this.indexlist();
+			this.getTu();
 			this.schoolNotice(1);
 			this.classNotice(1);
 			this.companyNotice();
@@ -219,6 +221,23 @@
 					console.log("res");
 					console.log(res);
 					this.titiname = res.data.schoolName;
+					uni.hideLoading();
+				}).catch(err => {
+					console.log("err");
+					console.log(err);
+					uni.hideLoading();
+					this.utils.error(err.msg);
+				});
+			},
+			//获取轮播
+			getTu(){
+				this.http.getApi('/carouse/getTu', {
+					schoolId: this.userlist.schoolId
+				}, 'get').then(res => {
+					console.log("res");
+					console.log(res);
+					this.listimg2 = res.data;
+					// this.titiname = res.data.schoolName;
 					uni.hideLoading();
 				}).catch(err => {
 					console.log("err");
@@ -315,33 +334,34 @@
 	.index_menu,
 	.index_notice {
 		max-width: 100%;
-		padding: 15px;
+		padding: 30rpx;
 
 		.menu_list {
-			width: 100%;
-			min-height: 100px;
-			padding-bottom: 15px;
+			max-width: 100%;
+			min-height: 140rpx;
+			// padding-bottom: 15px;
+			padding: 0 20rpx 20rpx 20rpx;
 			background-color: #FFFFFF;
-			border-radius: 15px;
+			border-radius: 30rpx;
 
 			// border: #007AFF 1px solid;
 			.menu_list_bk {
-				width: 15%;
+				width: 14%;
 				// height: 50px;
-				padding: 5px;
-				margin-top: 15px;
-				border-radius: 15px;
+				padding: 10rpx;
+				margin-top: 20rpx;
+				border-radius: 30rpx;
 				background-color: #F8F8F8;
 
-				// border: #DD524D 1px solid;
+				// border: #DD524D 1rpx solid;
 				text {
 
 					color: #333333;
-					font-size: 12px;
+					font-size: 20rpx;
 				}
 
 				image {
-					width: 40px;
+					width: 70rpx;
 				}
 			}
 

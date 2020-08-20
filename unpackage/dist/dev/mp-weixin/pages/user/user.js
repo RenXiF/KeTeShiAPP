@@ -130,7 +130,21 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var men = function men() {__webpack_require__.e(/*! require.ensure | config/user_men */ "common/vendor").then((function () {return resolve(__webpack_require__(/*! @/config/user_men.js */ 190));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var men = function men() {__webpack_require__.e(/*! require.ensure | config/user_men */ "common/vendor").then((function () {return resolve(__webpack_require__(/*! @/config/user_men.js */ 296));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -158,6 +172,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       mens: men,
+      admin: {
+        img: '/static/mens/34.png',
+        name: 'APP管理',
+        http: '/pages/user/appSetlist' },
+
       lognum: 0, //判断是否登录
       userlist: '',
       WXuser: '',

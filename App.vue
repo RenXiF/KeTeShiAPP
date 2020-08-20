@@ -146,6 +146,11 @@ view {
 	align-items: center;
 	/* justify-content: space-between !important; */
 }
+.flex_align_start {
+	display: flex;
+	align-items: flex-start;
+	/* justify-content: space-between !important; */
+}
 .flex_jufy_center{
 	display: flex;
 	align-items: center;
@@ -163,10 +168,11 @@ view {
 }
 .null{
 		width: 100%;
+		height: 100%;
 		padding: 30px 0;
 		font-size: 30px;
 		display: flex;
-		align-items: center;
+		// align-items: center;
 		justify-content: center;
 		text{
 			color: #C0C0C0;

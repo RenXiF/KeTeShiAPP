@@ -20,15 +20,14 @@ var utils = __webpack_require__(/*! ./common/util.js */ 13);
 
 _vue.default.prototype.http = http;
 _vue.default.prototype.utils = utils;
-_vue.default.prototype.url = 'http://192.168.0.116:8080/';
 /**
-                                                            * 客服电话
-                                                            */
-_vue.default.prototype.phone = '123456789';
+                                       * 客服电话
+                                       */
+_vue.default.prototype.phone = '0851-2323-8398';
 
 /**
-                                             * 高德地图SDK
-                                             */
+                                                  * 高德地图SDK
+                                                  */
 _vue.default.prototype.amap = function () {
   return new _amap.default.AMapWX({
     key: '0898c34e96fae4c7cbff8110e711a5d3' });
@@ -329,11 +328,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 {
-  // created() {
-  //
-
-
-  // },
   onLaunch: function onLaunch() {
     console.log('App Launch');
   },

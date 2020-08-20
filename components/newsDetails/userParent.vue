@@ -39,8 +39,9 @@
 				</view>
 			</view>
 		</view>
-		<view class="null" v-if="!list">
-			<text>暂无记录</text>
+		<view class="null flex_columns flex-center" v-if="!list">
+			<image src="../../static/icon/nullgogao.png" mode="widthFix"></image>
+			<text style="color: #868686;">暂无记录</text>
 		</view>
 		<cusPreviewImg ref="cusPreviewImg" :list="ImgList" />
 	</view>

@@ -113,12 +113,13 @@
 		},
 		onLoad() {
 			let openid = uni.getStorageSync('openid'); //加载用户缓存
+			let WXopenid = uni.getStorageSync('WXopenid'); //加载用户缓存
 			console.log(this.user);
 			if(openid){
 				this.listuser.userWxid = openid;
+			}else{
+				this.listuser.userWxid = WXopenid;
 			}
-			
-			
 		},
 		onShow() {
 			this.user = uni.getStorageSync('userlist');
@@ -185,8 +186,6 @@
 				if(this.listuser.userRole==0){
 					this.utils.error('请选择角色！');return;
 				}
-				// this.xuexiao = this.listuser.userRole!=3  ? this.yanSchool :this.xuexiao;
-				// this.laoshi = this.listuser.userRole!=2 ? this.yanClass :this.laoshi;
 				if(this.listuser.userName==''){
 					this.utils.error('请填写用户名！');return;
 				}
@@ -221,7 +220,7 @@
 					console.log("res");
 					console.log(res);
 					_this.utils.success('注册成功！',()=>{
-						_this.utils.navback();
+						_this.doUrl("pages/login/login",{login:true,openid:this.listuser.userWxid});
 					})
 				}).catch(err => {
 					console.log("err");
@@ -233,6 +232,7 @@
 						    success: function (res) {
 						        if (res.confirm) {
 									_this.utils.navback();
+									_this.doUrl("pages/login/login",{login:true,openid:this.listuser.userWxid});
 						        } else if (res.cancel) {
 						        }
 						    }

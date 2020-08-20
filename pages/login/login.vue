@@ -62,6 +62,11 @@
 		mounted() {
 			_this = this;
 		},
+		onShow(e) {
+			if(e.login){
+				this.loginWeiXin(e.openid);
+			}
+		},
 		methods: {
 			//手机号登录
 			loginphone() {
@@ -88,7 +93,7 @@
 					console.log(res);
 					uni.hideLoading();
 					this.utils.success("登录成功！",function(){
-						uni.setStorageSync('openid', res.data.userWxid);
+						uni.setStorageSync('WXopenid', res.data.userWxid);
 						uni.setStorageSync('userlist', res.data);
 						_this.utils.navback();
 					});
@@ -109,7 +114,7 @@
 						uni.getUserInfo({
 							provider: 'weixin',
 							success: function(infoRes) {
-								uni.setStorageSync('openid', infoRes.userInfo.openId);
+								uni.setStorageSync('WXopenid', infoRes.userInfo.openId);
 								uni.setStorageSync('WXuser', infoRes.userInfo);
 								console.log(infoRes.userInfo);
 								_this.loginWeiXin(infoRes.userInfo.openId);

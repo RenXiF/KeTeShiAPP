@@ -33,6 +33,7 @@
 				uni.removeStorageSync('userlist');
 				uni.removeStorageSync('WXuser');
 				uni.removeStorageSync('openid');
+				uni.removeStorageSync('WXopenid');
 				this.utils.success("退出成功！",function(){
 					uni.navigateBack({
 						delta: 1

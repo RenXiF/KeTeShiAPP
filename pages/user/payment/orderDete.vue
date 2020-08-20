@@ -8,7 +8,7 @@
 			</view>
 			<view class="one_ck  flex-center flex_rows">
 				<image src="../../../static/icon/banji.png" mode="widthFix">
-					<view class="radio_item flex_rows" @click="radioClick(index)" v-for="(item ,index) in list" :key="index">
+					<view class="radio_item flex_rows" @click="radioClick(item,index)" v-for="(item ,index) in list" :key="index">
 						<view :class="[radio1 == index ? 'active' : '', 'radio_icon']">√</view>
 						<text>{{item.tit}}</text>
 					</view>
@@ -18,11 +18,11 @@
 			</view>
 			<view class="one_ck  flex-center flex_rows">
 				<image src="../../../static/icon/haizi.png" mode="widthFix">
-					<view class="radio_item flex_rows" @click="radioClick2(index)" v-for="(item ,index) in list2" :key="index" v-if="radio1==0">
+					<view class="radio_item flex_rows" @click="radioClick2(item,index)" v-for="(item ,index) in list2" :key="index" v-if="radio1==0">
 						<view :class="[radio2 == index ? 'active' : '', 'radio_icon']">√</view>
 						<text>{{item.tit}}</text>
 					</view>
-					<view class="radio_item flex_rows" @click="radioClick2(index)" v-for="(item ,index) in list3" :key="index" v-if="radio1==1">
+					<view class="radio_item flex_rows" @click="radioClick2(item,index)" v-for="(item ,index) in list3" :key="index" v-if="radio1==1">
 						<view :class="[radio2 == index ? 'active' : '', 'radio_icon']">√</view>
 						<text>{{item.tit}}</text>
 					</view>
@@ -33,7 +33,7 @@
 				<text>2，学年说明，用于学生进出校园身份检测及体温检测，检测学生在校的安全情况，</text>
 			</view>
 		</view>
-		<view class="flex-center flex_jufy_center" @click="doUrl('/pages/user/payment/payment')">
+		<view class="flex-center flex_jufy_center" @click="doUrl('/pages/user/payment/payment',{Selected:Selected,type:radio1})">
 			<button class="logout" style="color: #FFFFFF;" type="default">立即支付</button>
 		</view>
 	</view>
@@ -46,35 +46,52 @@
 				radio1: 0,
 				radio2: 0,
 				list: [{
-						tit: '否'
+						tit: '否',
+						num:0
 					},
 					{
-						tit: '是'
+						tit: '是',
+						num:1
 					}
 				],
 				list2: [{
-						tit: '60元/半学年'
+						tit: '60元/半学年',
+						num:0.01
 					},
 					{
-						tit: '120元/一学年'
+						tit: '120元/一学年',
+						num:0.01
 					}
 				],
 				list3: [{
-						tit: '75元/半学年'
+						tit: '75元/半学年',
+						num:0.01
 					},
 					{
-						tit: '150元/一学年'
+						tit: '150元/一学年',
+						num:0.01
 					}
-				]
+				],
+				Selected:null
 			}
+		},
+		onLoad() {
+			this.radioClick2(this.list2[0],0);
 		},
 		methods: {
 			//角色选择
-			radioClick(index) {
+			radioClick(item,index) {
 				this.radio1 = index;
+				if (index == 0) {
+					this.radioClick2(this.list2[0],0);
+				} else{
+					this.radioClick2(this.list3[0],0);
+				}
 			},
-			radioClick2(index) {
+			radioClick2(item,index) {
+				console.log(item);
 				this.radio2 = index;
+				this.Selected = item.num;
 			},
 		}
 	}

@@ -22,12 +22,25 @@
     "pages/user/userBinding",
     "pages/news/newsDetails/userPrincipal",
     "pages/news/newsDetails/userTeacher",
-    "pages/news/newsDetails/userParent"
+    "pages/news/newsDetails/userParent",
+    "pages/user/appSetlist",
+    "pages/user/setRotation",
+    "pages/user/feedbackList",
+    "pages/user/feedbackRecord",
+    "pages/index/notice/noticeList",
+    "pages/index/Timetable/Timetable",
+    "pages/index/notice/noticeAdd",
+    "pages/index/notice/noticeDelete",
+    "pages/index/Question/Question",
+    "pages/index/Timetable/TimetableAdd",
+    "pages/user/payment/payment",
+    "pages/user/payment/orderDete",
+    "pages/user/payment/orderTit"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "智悦校园安防",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
@@ -59,6 +72,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap70.json"
+  "usingComponents": {}
 }

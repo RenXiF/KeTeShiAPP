@@ -1,7 +1,7 @@
 <template>
 	<!-- 意见反馈页面 -->
 	<view class="index_fee flex_columns">
-		<view style="margin-top: 20px;" v-if="Feedbacklist">
+		<view style="margin-top: 20px;" v-if="Feedbacklist.length!=0">
 			<view class="index_Feedback redBg4 flex_columns" v-for="(item,index) in Feedbacklist">
 				<view class="text_b text_a flex-between flex-center" v-if="item.createdTime">
 					<text>时间：</text>
@@ -29,8 +29,12 @@
 				</view>
 			</view>
 		</view>
-		<view style="height: 100%; width: 100%; text-align: center; font-size: 30px;" v-else>
+		<!-- <view style="height: 100%; width: 100%; text-align: center; font-size: 30rpx; color: #333333;" v-if="Feedbacklist.length==0">
 			<h3>暂无信息！</h3>
+		</view> -->
+		<view class="null flex_columns flex-center" v-if="Feedbacklist.length==0">
+			<image src="../../static/icon/nullgogao.png" mode="widthFix"></image>
+			<text style="color: #868686;">暂无记录</text>
 		</view>
 	</view>
 </template>
