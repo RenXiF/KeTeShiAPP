@@ -59,10 +59,10 @@
 			this.WXuser = uni.getStorageSync('WXuser'); //加载用户缓存
 			let openid = uni.getStorageSync('openid'); //加载openid
 			let WXopenid = uni.getStorageSync('WXopenid'); //加载WXopenid
-			console.log(this.userlist);
-			console.log(this.WXuser);
-			console.log(openid);
-			console.log(WXopenid);
+			// console.log(this.userlist);
+			// console.log(this.WXuser);
+			// console.log(openid);
+			// console.log(WXopenid);
 			if(openid != ''){
 				this.mens[0].name = this.userlist.userName;
 				this.mens[0].img = this.Phoneimg;
@@ -72,8 +72,12 @@
 				this.mens[0].name =  this.WXuser.nickName;
 				this.mens[0].img =  this.WXuser.avatarUrl;
 				this.lognum = 2;
+				
 			}
-			this.userlist.status == 1 || this.userlist.userRole != 1 ? this.mens[2].name='已开通服务':this.mens[2].name;
+			if(this.lognum != 0){
+				this.userlist.status == 1 || this.userlist.userRole != 1 ? this.mens[2].name='已开通服务':this.mens[2].name;
+			}
+			
 			this.loginins();
 		},
 		methods: {
@@ -111,13 +115,13 @@
 								this.mens[0].img =  this.WXuser.avatarUrl;
 								this.lognum = 2;
 							}
+							this.userlist.status == 1 || this.userlist.userRole != 1 ? this.mens[2].name='已开通服务':this.mens[2].name;
 							uni.hideLoading();
 							this.utils.success("登录成功！");
 						}else{
 							this.logout(item);
 						}
 					} else {
-						// this.loginXZ(item);
 						this.doUrl('pages/login/login');
 					}
 				}
@@ -148,6 +152,7 @@
 				// uni.removeStorageSync('user');
 				// this.userlist = '';
 				this.lognum = 0;
+				this.mens[2].name='服务开通';
 				this.utils.success("退出成功！");
 			}
 		}

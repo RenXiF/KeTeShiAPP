@@ -48,13 +48,7 @@ uni-page-head {
 	justify-content: center;
 	align-items: center;
 }
-/* //浮动 */
-.rt {
-	float: right;
-}
-.lt {
-	float: left;
-}
+
 /* //主页样式 */
 
 /* // 促销背景 */
@@ -97,7 +91,9 @@ view {
 	padding: 20upx;
 }
 .boder {
-	border: 1upx crimson solid;
+	border-width: 1upx;
+	border-style: solid;
+	border-color: crimson;
 }
 .img image{
 	width: 30px;

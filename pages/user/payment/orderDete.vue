@@ -56,20 +56,20 @@
 				],
 				list2: [{
 						tit: '60元/半学年',
-						num:0.01
+						num:60
 					},
 					{
 						tit: '120元/一学年',
-						num:0.01
+						num:120
 					}
 				],
 				list3: [{
 						tit: '75元/半学年',
-						num:0.01
+						num:75
 					},
 					{
 						tit: '150元/一学年',
-						num:0.01
+						num:150
 					}
 				],
 				Selected:null

@@ -185,6 +185,7 @@
 			}
 		},
 		onLoad() {
+			uni.hideLoading();
 			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
 			console.log(this.userlist);
 			if (this.userlist != '') {
@@ -203,11 +204,13 @@
 		onPullDownRefresh() {
 			console.log('下拉刷新');
 			this.utils.showloading();
-			this.indexlist();
-			this.getTu();
-			this.schoolNotice(1);
-			this.classNotice(1);
-			this.companyNotice();
+			if (this.userlist != '') {
+				this.indexlist();
+				this.getTu();
+				this.schoolNotice(1);
+				this.classNotice(1);
+				this.companyNotice();
+			}
 			// uni.stopPullDownRefresh();
 			this.utils.success('刷新成功！', () => {
 				uni.stopPullDownRefresh();

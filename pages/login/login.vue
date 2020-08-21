@@ -53,6 +53,10 @@
 				phoneData: '', //用户/电话
 				passData: '', //密码
 				isRotate: false, //是否加载旋转
+				onlad:{
+					login:false,
+					openid:''
+				}
 			};
 		},
 		components: {
@@ -62,10 +66,15 @@
 		mounted() {
 			_this = this;
 		},
-		onShow(e) {
-			if(e.login){
+		onLoad(e) {
+			console.log(e);
+			// this.onlad = e;
+			if(e.login === "true"){
 				this.loginWeiXin(e.openid);
 			}
+		},
+		onShow() {
+			
 		},
 		methods: {
 			//手机号登录
@@ -77,13 +86,12 @@
 						_this.isRotate = false;
 						uni.setStorageSync('openid', res.data.userPhone);
 						uni.setStorageSync('userlist', res.data);
-						_this.utils.navback();
+						uni.switchTab({url: '/pages/user/user'});
 					});
 				}).catch(err => {
 					console.log(err);
 					_this.isRotate = false;
 				});
-				
 			},
 			//微信验证登录
 			loginWeiXin(openid) {
@@ -95,7 +103,7 @@
 					this.utils.success("登录成功！",function(){
 						uni.setStorageSync('WXopenid', res.data.userWxid);
 						uni.setStorageSync('userlist', res.data);
-						_this.utils.navback();
+						uni.switchTab({url: '/pages/user/user'});
 					});
 				}).catch(err => {
 					console.log(err);
@@ -120,6 +128,14 @@
 								_this.loginWeiXin(infoRes.userInfo.openId);
 							}
 						});
+						uni.hideLoading();
+					},
+					fail:function(err){
+						console.log(err);
+						if(err.code == -2){
+							_this.utils.error('您已取消授权！');
+							_this.isRotate = false;
+						}
 					}
 				});
 			},

@@ -5,7 +5,7 @@
 		<image style="width: 100%;" :src="list.imageOne" mode="widthFix" v-if="list.imageOne"></image>
 		<image style="width: 100%;" :src="list.imageTwo" mode="widthFix" v-if="list.imageTwo"></image>
 		<image style="width: 100%;" :src="list.imageThree" mode="widthFix" v-if="list.imageThree"></image>
-		<view class="null flex_columns" v-if="!list.imageOne">
+		<view class="null flex_columns flex-center" v-if="!list.imageOne">
 			<image src="../../../static/icon/nullgogao.png" mode="widthFix"></image>
 			<text style="">暂无课表</text>
 		</view>

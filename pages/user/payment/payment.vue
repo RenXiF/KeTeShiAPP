@@ -128,10 +128,12 @@
 							if (_this.userlist.userWxid.length>11) {
 								_this.loginphone(_this.userlist.userPhone,_this.userlist.password);
 								uni.switchTab({url: '/pages/index/index'});
+								uni.hideLoading();
 								
 							} else{
 								_this.loginWeiXin(_this.userlist.userWxid);
 								uni.switchTab({url: '/pages/index/index'});
+								uni.hideLoading();
 							}
 						});
 					},
