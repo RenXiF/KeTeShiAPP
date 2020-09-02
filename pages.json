@@ -6,10 +6,14 @@
 				// "app-plus": {
 				// 	"titleNView": false //禁用原生导航栏
 				// },
+				"navigationStyle": "custom", // 隐藏系统导航栏
+				"navigationBarTextStyle": "white" ,// 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+				"backgroundColorTop":"#F8F8F8",
 				"navigationBarTitleText": "首页",
-				"navigationBarBackgroundColor": "#F8F8F8",
+				// "navigationBarBackgroundColor": "#F8F8F8",
 				"enablePullDownRefresh": true,
 				"app-plus": {
+					"scrollIndicator":"none",
 					"pullToRefresh": {
 						"support": true,
 						"color": "#1FC189",
@@ -267,6 +271,12 @@
 				"app-plus": {
 					"scrollIndicator": "none" //设置为 "none" 时不显示滚动条。
 				}
+			}
+        }
+        ,{
+            "path" : "pages/user/aboutApp/privacyPolicy",
+            "style" : {
+				"navigationBarTitleText": "隐私政策及服务条款"
 			}
         }
     ],

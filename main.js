@@ -14,7 +14,8 @@ Vue.prototype.utils = utils;
 /**
  * 客服电话
  */
-Vue.prototype.phone = '0851-2323-8398';
+Vue.prototype.phone = '0851-2323-8398';//客服电话
+Vue.prototype.edition = 'V1.0.0';//软件版本号
 
 /**
  * 高德地图SDK

@@ -3,7 +3,7 @@
 		<view class="tit_list centerlay" v-for="(item,index) in mens" :key="index" v-if="mens">
 			<view class="list_block centerlay flex-between">
 				<view class="tit_name flex_rows " @click="mensclick(item)">
-					<image :src="item.img" :class="lognum == 2 && index == 0 ? 'img_max': 'img_min'" mode="widthFix"  v-if="lognum == 2"></image>
+					<image :src="item.img ? item.img :'/static/icon/usernull.png'" :class="lognum == 2 && index == 0 ? 'img_max': 'img_min'" mode="widthFix"  v-if="lognum == 2"></image>
 					<image :src="item.img" :class="lognum == 1 && index == 0 ? 'img_maxs': 'img_min'" mode="widthFix" v-else></image>
 					<text class="name_tit">{{item.name}}</text>
 					<text class="sutit" v-if="item.sutit">{{item.sutit}}</text>
@@ -191,6 +191,7 @@
 
 	.list_block {
 		width: 95%;
+		/* max-height: 100rpx; */
 		margin: 7px 0;
 		/* border: #007AFF 1px solid; */
 	}
@@ -203,8 +204,9 @@
 
 	.img_max {
 		width: 60px;
+		/* height: 60px; */
 		margin-right: 10px;
-		border-radius: 30px;
+		border-radius: 50%;
 		box-shadow: 1px 2px 6px #C0C0C0;
 	}
 	.img_maxs {

@@ -1,9 +1,14 @@
 <template>
 	<view class="index_home flex_columns">
 		<!-- <view class="status_height"></view> -->
-		<Rotation :imgList="listimg2"></Rotation>
+		<!-- <Rotation :imgList="listimg2"></Rotation> -->
+		
+		<view class="index_bg"></view>
+		<view class="status_height"></view>
+		<view class="flex_jufy_center flex-center" style="height: 88rpx; color: #FFFFFF;"><text>{{titiname}}</text></view>
+		<ls-swiper :list="listimg2" autoplay loop imgKey="img" :interval="3000" :bottom="10" crown dots :height='190' :previousMargin="50" :nextMargin='50' :imgRadius="15" />
 		<view class="index_menu">
-			<view class="menu_list flex_rows flex-center flex_wrap flex-around">
+			<view class="menu_list flex_rows flex-center flex_wrap">
 				<view class="menu_list_bk flex_columns flex-center " v-for="(item , index) in mens" :key="index" @click="menslist(item)">
 					<image :src="item.img" mode="widthFix"></image>
 					<text>{{item.tit}}</text>
@@ -54,6 +59,7 @@
 
 <script>
 	import Rotation from "../../components/swiper-Rotation/swiper-Rotation.vue" //轮播
+	import lsSwiper from '@/components/ls-swiper/index.vue' //轮播
 	// import navigation from "../../components/navigation.vue" //导航
 	// import Calendar from '@/components/uni-calendar/uni-calendar.vue' //日历
 	import ArticleCard from "@/components/article-card/article-card.vue" //动态
@@ -64,7 +70,8 @@
 			// Calendar,
 			Rotation,
 			ArticleCard,
-			sempNoticeBar
+			sempNoticeBar,
+			lsSwiper
 		},
 		onReady() {
 			uni.setNavigationBarTitle({
@@ -101,38 +108,38 @@
 				mens: [{
 						tit: "校园公告",
 						http: 'pages/index/notice/noticeList',
-						img: "../../static/icon/1.png",
+						img: "../../static/icon/2-1.png",
 					},
 					{
-						tit: "校园动态",
-						img: "../../static/icon/2.png",
+						tit: "校园建设",
+						img: "../../static/icon/2-5.png",
 					},
 					{
 						tit: "健康防护",
-						img: "../../static/icon/3.png",
+						img: "../../static/icon/2-4.png",
 					},
 					{
 						tit: "课表精灵",
 						http: 'pages/index/Timetable/Timetable',
-						img: "../../static/icon/4.png",
+						img: "../../static/icon/2-2.png",
 					},
 					{
 						tit: "知识题库",
-						img: "../../static/icon/5.png",
+						img: "../../static/icon/2-3.png",
 						http: 'pages/index/Question/Question',
 					},
-					// {
-					// 	tit: "校友风采",
-					// 	img: "../../static/icon/6.png",
-					// },
-					// {
-					// 	tit: "学校食堂",
-					// 	img: "../../static/icon/7.png",
-					// },
-					// {
-					// 	tit: "学生活动",
-					// 	img: "../../static/icon/8.png",
-					// },
+					{
+						tit: "请假放行",
+						img: "../../static/icon/2-6.png",
+					},
+					{
+						tit: "学校食堂",
+						img: "../../static/icon/2-7.png",
+					},
+					{
+						tit: "课外兴趣",
+						img: "../../static/icon/2-8.png",
+					},
 					// {
 					// 	tit: "课外知识",
 					// 	img: "../../static/icon/9.png",
@@ -323,7 +330,17 @@
 	.index_home {
 		width: 100%;
 		height: 100%;
-		background-color: #F8F8F8;
+		// background-color: #F8F8F8;
+	}
+	.index_bg{
+		width: 100%;
+		z-index: -1;
+		height: 1000rpx;
+		border-radius:0 0 5% 5% ;
+		background-image: linear-gradient(150deg, #8FDC92, #38BAB5);
+		position: fixed;
+		top: 0;
+		
 	}
 
 	// tabBar高度
@@ -344,23 +361,23 @@
 			min-height: 140rpx;
 			// padding-bottom: 15px;
 			padding: 0 20rpx 20rpx 20rpx;
-			background-color: #FFFFFF;
+			// background-color: #FFFFFF;
 			border-radius: 30rpx;
 
 			// border: #007AFF 1px solid;
 			.menu_list_bk {
-				width: 14%;
+				width: 22%;
 				// height: 50px;
 				padding: 10rpx;
 				margin-top: 20rpx;
 				border-radius: 30rpx;
-				background-color: #F8F8F8;
+				// background-color: #F8F8F8;
 
 				// border: #DD524D 1rpx solid;
 				text {
-
-					color: #333333;
-					font-size: 20rpx;
+					margin-top: 15rpx;
+					color: #FFFFFF;
+					font-size: 25rpx;
 				}
 
 				image {

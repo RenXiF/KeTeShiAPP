@@ -18,7 +18,7 @@
 				<view class="orderlist flex_columns">
 					<view class="notice_ck flex_columns" v-for="(item ,index) in menuLists" :key="index" v-if="menuLists!=null">
 						<view class="tit_list flex_wrap flex-center flex_rows">
-							<image src="../../static/icon/gogao3.png" mode="widthFix"></image>
+							<image src="../../static/icon/dingdan.png" mode="widthFix"></image>
 							<text v-if="item.status == 0">未支付</text>
 							<text v-if="item.status == 1">已支付</text>
 							<text v-if="item.status == 2">异常订单</text>

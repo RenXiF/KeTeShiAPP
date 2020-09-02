@@ -2,8 +2,8 @@
 	<!-- 关于app -->
 	<view class="index_app flex_columns">
 		<view class="index_icon flex-center flex_columns flex_jufy_center">
-			<image src="../../static/logo.png" mode="widthFix"></image>
-			<text>V1.0.0</text>
+			<image src="@/static/logo.png" mode="widthFix"></image>
+			<text>{{edition}}</text>
 		</view>
 		<view class="index_titbk">
 			<list :listdata="listtit"></list>
@@ -31,17 +31,8 @@
 		data() {
 			return {
 				listtit:[
-					{name:"推荐给好友",
-					http:"../../pages/index"
-					},
-					{name:"特别声明",
-					http:"../../pages/index"
-					},
-					{name:"使用帮助",
-					http:"../../pages/index"
-					},
-					{name:"服务条款",
-					http:"../../pages/index"
+					{name:"用户隐私政策",
+					http:"pages/user/aboutApp/privacyPolicy"
 					}
 				]
 			}

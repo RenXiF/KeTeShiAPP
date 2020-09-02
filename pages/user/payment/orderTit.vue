@@ -10,9 +10,10 @@
 				<text style="color: #535353;">{{item.tit}}</text>
 				
 			</view>
-			<view class="flex-between" style="width: 100%;" v-if="userlist.status == 1">
+			<view class="flex-between" style="width: 100%;" v-if="userlist.status == 1 || this.userlist.userRole != 1">
 				<text>到期时间</text>
-				<text>{{userlist.endtime.substring(0,16)}}</text>
+				<text v-if="userlist.endtime">{{userlist.endtime.substring(0,16)}}</text>
+				<text v-else>2年</text>
 			</view>
 			
 		</view>
@@ -55,7 +56,7 @@
 		onLoad() {
 			this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
 			console.log(this.userlist);
-			this.userlist.status == 1? this.tit='续费服务':this.tit='立即开通';
+			this.userlist.status == 1 || this.userlist.userRole != 1? this.tit='续费服务':this.tit='立即开通';
 			// this.judgeOrder();
 		},
 		onReady() {
