@@ -216,7 +216,7 @@
 		}
 
 		.tab-active {
-			border-bottom: #E54D42 4rpx solid;
+			border-bottom: #E54D42 6rpx solid;
 		}
 	}
 

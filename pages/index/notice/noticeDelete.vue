@@ -1,7 +1,7 @@
 <template>
 	<!-- 编辑公告页面 -->
 	<view class="index_dele flex_columns flex-center">
-			<view style="margin-top: 20px;" v-if="Feedbacklist">
+			<view style="margin-top: 20px;" v-if="Feedbacklist.length!=0">
 				<view class="index_Feedback  bg-gradual-index-row flex_columns" v-for="(item,index) in Feedbacklist">
 					<image class="eliminate" @click="noticeDelete(item.proclamationId)" src="../../../static/icon/error1.png" mode="widthFix"></image>
 					<view class="text_b text_a flex-between flex-center" v-if="item.createdTime">

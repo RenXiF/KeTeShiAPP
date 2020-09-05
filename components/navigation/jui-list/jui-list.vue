@@ -116,8 +116,6 @@
 			this.wid=this.swLine
 			// 等待dom渲染后执行
 			this.$nextTick(()=>{
-					
-					
 				var query=uni.createSelectorQuery().in(this)
 				query.selectAll('.nav-tx').boundingClientRect(data => {
 					navList=data
@@ -125,10 +123,7 @@
 					this.left=navList[0].left+ (navList[0].width-this.wid)/2-this.SrPadding
 					mp=this.left
 				}).exec();
-					
-				
 			})
-												
 		},
 		data() {
 			return {

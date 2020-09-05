@@ -14,11 +14,11 @@
 		data() {
 			return {
 				list:[
-					{name:"更换轮播图",
-					img: '/static/mens/19.png',
-					http:"pages/user/setRotation"
-					},
-					{name:"添加公告",
+					// {name:"更换轮播图",
+					// img: '/static/mens/19.png',
+					// http:"pages/user/setRotation"
+					// },
+					{name:"添加公告及作业",
 					img: '/static/mens/19.png',
 					http:"pages/index/notice/noticeAdd"
 					},

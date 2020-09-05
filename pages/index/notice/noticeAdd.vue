@@ -4,6 +4,13 @@
 			<navigation @clickLeft="navback()" @clickRight="Submit()" fixed="true" title="添加通知" backgroundColor="#ffffff" leftIcon="../../../static/icon/left.png"
 			 rightText="发布"></navigation>
 			<view class="noe_feedbk flex_columns">
+				<view class="paging flex_rows flex-center flex-around">
+					<view v-for="(menuTab,index) in menuTabs" :key="index" class="">
+						<text class="tab-nav-item" @click="swichMenu(index)" :class="[fromlist.reserveTwo==index ? 'tab-active' : '']">
+							{{menuTab.name}}
+						</text>
+					</view>
+				</view>
 				<input type="text" style="margin-top: 20px;" v-model="fromlist.proclamationName" placeholder="标题内容"/>
 				<view class="feedbk_tittextare centerlay">
 					<textarea value="" v-model="fromlist.proclamationText" maxlength="200" @confirm="Submit()" placeholder="通知内容" />
@@ -52,6 +59,11 @@
 			data() {
 				return {
 					userlist:'',
+					currentTab: 0,
+					menuTabs: [
+						{name: '校园公告'},
+						{name: '班级作业'},
+					],
 					fromlist:{
 						 createdBy:'',//用户ID
 						 proclamationName:'',//标题
@@ -62,6 +74,7 @@
 						 imageTwo:'',
 						 imageThree:'',
 						 proclamationType:'',// 公告类型,1全校，2班级，3公司
+						 reserveTwo:0,
 					}
 				};
 			},
@@ -81,6 +94,14 @@
 				console.log(this.userlist);
 			},
 			methods:{
+				swichMenu: async function(current) { //点击其中一个选项
+				console.log(current)
+					if (this.fromlist.reserveTwo == current) {
+						return false;
+					} else {
+						this.fromlist.reserveTwo = current;
+					}
+				},
 				navback(){
 					this.utils.navback();
 				},
@@ -143,6 +164,32 @@
 	</script>
 	
 	<style lang="scss">
+		/* 标题选择 */
+		.paging {
+			background: #FFFFFF;
+			width: 100%;
+			min-height: 80rpx;
+			// position: fixed;
+			// z-index: 99999;
+			// top: 0;
+			text {
+				width: 20%;
+				text-align: center;
+			}
+		
+			.tab-nav-item {
+				height: 80rpx;
+				padding: 10rpx 20rpx;
+				color: #585858;
+				font-size: 0.8rem;
+			}
+		
+			.tab-active {
+				border-bottom: #E54D42 6rpx solid;
+			}
+		}
+		
+		
 	.index_feedbk{
 		width: 100%;
 		min-height: 750px;

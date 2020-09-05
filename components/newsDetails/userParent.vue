@@ -1,7 +1,7 @@
 <template>
 	<!-- 家长消息详情 -->
 	<view class="index_details flex_columns">
-		<view class="news_details flex-center flex_columns" v-for="(item,index) in list.list" v-if="list">
+		<view class="news_details flex-center flex_columns" v-for="(item,index) in list" v-if="list">
 			<text style="color: #C0C0C0;" v-if="item.createdTime">{{item.createdTime.substring(0,16)}}</text>
 			<view class="details_bk flex_columns">
 				<view class="tit_bk flex-between flex-center">
@@ -9,7 +9,7 @@
 						<image :src="icon" mode="widthFix"></image>
 						<text>{{tit}}</text>
 					</view>
-					<image style="width: 30px;" src="../../static/icon/more.png" mode="widthFix"></image>
+					<!-- <image style="width: 30px;" src="../../static/icon/more.png" mode="widthFix"></image> -->
 				</view>
 				<view class="list_block flex_columns">
 					<view class="itemImg flex_columns" @click="yulanr(item.imgbase64)">

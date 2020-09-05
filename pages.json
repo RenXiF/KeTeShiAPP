@@ -188,6 +188,7 @@
 			"path": "pages/index/notice/noticeList",
 			"style": {
 				// "navigationBarTitleText": "校园公告"
+				// "enablePullDownRefresh": true,
 				"app-plus": {
 					"titleNView": false //禁用原生导航栏
 				}

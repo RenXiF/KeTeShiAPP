@@ -16,7 +16,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="tit_list centerlay" v-if="userlist.userRole==3">
+		<view class="tit_list centerlay" v-if="userlist.userRole!=1">
 			<view class="list_block centerlay flex-between" @click="doUrl(admin.http)">
 				<view class="tit_name flex_rows">
 					<image :src="admin.img" class="img_min" mode="widthFix"></image>

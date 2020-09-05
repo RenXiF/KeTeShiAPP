@@ -23,8 +23,8 @@
 				<text class="tit_l">{{item.temperature}}</text>
 				<text class="tit_m" v-if="item.temperaturestate=='1'">正常</text>
 				<text class="tit_m" v-if="item.temperaturestate=='2'">异常</text>
-				<text class="tit_m" v-if="item.reserveTwo=='1'">进入</text>
-				<text class="tit_m" v-if="item.reserveTwo=='2'">出入</text>
+				<text class="tit_m" v-if="item.reserveTwo=='1'">进口</text>
+				<text class="tit_m" v-if="item.reserveTwo=='2'">出口</text>
 			</view>
 			<view class="tit_page flex-center" v-if="newslist">
 				<view class="pages_number flex-center flex-around">
@@ -172,8 +172,8 @@
 		padding: 10px 0;
 
 		text {
-			font-size: 13px;
-			margin: 0 10px;
+			font-size: 11px;
+			// margin: 0 10px;
 		}
 	}
 

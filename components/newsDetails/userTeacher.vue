@@ -1,7 +1,7 @@
 <template>
 	<!-- 老师消息详情 -->
 	<view class="index_details flex_columns">
-		<view class="news_details flex-center flex_columns" v-if="list">
+		<view class="news_details flex-center flex_columns">
 			<text style="color: #C0C0C0;">{{data}}</text>
 			<view class="details_bk flex_columns">
 				<view class="tit_bk flex-between flex-center">
@@ -9,7 +9,12 @@
 						<image :src="icon" mode="widthFix"></image>
 						<text>{{tit}}</text>
 					</view>
-					<image style="width: 30px;" @click="doUrl('pages/news/newsDetails/userTeacher')" src="../../static/icon/more.png" mode="widthFix"></image>
+					<view class="flex_jufy_center flex-center">
+						<picker @change="bindPickerChange" :value="selectDay" :range="array" class="flex-center">
+						<text style="margin-right: 10px;">{{array[selectDay]}}</text>
+						</picker>
+						<image style="width: 30px;" @click="doUrl('pages/news/newsDetails/userTeacher')" src="../../static/icon/more.png" mode="widthFix"></image>
+					</view>
 				</view>
 				<view class="list_block flex_columns">
 					<view class="itemImg flex_columns" @click="yulanr(imglist)">
@@ -19,11 +24,13 @@
 					</view>
 					<view class="one_name flex-between">
 						<text>班级总人数：</text>
-						<text class="wendu2">{{list.userSum}}人</text>
+						<text class="wendu2" v-if="list.userSum">{{list.userSum}}人</text>
+						<text class="wendu2" v-else>0人</text>
 					</view>
 					<view class="one_name flex-between">
 						<text>当前打卡总人数：</text>
-						<text class="wendu2">{{list.dateSum}}人</text>
+						<text class="wendu2" v-if="list.dateSum">{{list.dateSum}}人</text>
+						<text class="wendu2" v-else>0人</text>
 					</view>
 					<!-- <view class="one_name flex-between">
 						<text>今日已打卡人员记录：</text>
@@ -31,27 +38,31 @@
 					</view> -->
 					<view class="one_name flex-between">
 						<text>进入打卡记录总人数：</text>
-						<text class="wendu2">{{list.jinType}}人</text>
+						<text class="wendu2" v-if="list.jinType">{{list.jinType}}人</text>
+						<text class="wendu2" v-else>0人</text>
 					</view>
 					<view class="one_name flex-between">
 						<text>出门打卡总人数：</text>
-						<text class="wendu2">{{list.chutype}}人</text>
+						<text class="wendu2" v-if="list.chutype">{{list.chutype}}人</text>
+						<text class="wendu2" v-else>0人</text>
 					</view>
 					<view class="one_name flex-between">
 						<text>进入温度异常人数：</text>
-						<text :class="[list.jinerror >= du ? 'wendu' : 'wendu2']">{{list.jinerror}}人</text>
+						<text :class="[list.jinerror >= du ? 'wendu' : 'wendu2']" v-if="list.jinerror">{{list.jinerror}}人</text>
+						<text class="wendu2" v-else>0人</text>
 					</view>
 					<view class="one_name flex-between">
 						<text>出门温度异常人数：</text>
-						<text :class="[list.chuerror >= du ? 'wendu' : 'wendu2']">{{list.chuerror}}人</text>
+						<text :class="[list.chuerror >= du ? 'wendu' : 'wendu2']" v-if="list.chuerror">{{list.chuerror}}人</text>
+						<text class="wendu2" v-else>0人</text>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="null flex_columns" v-if="!list" @click="doUrl('pages/news/newsDetails/userTeacher',{status:0})">
-			<text>暂无记录</text>
+		<!-- <view class="null flex_columns flex-center" v-if="!list" @click="doUrl('pages/news/newsDetails/userTeacher',{status:0})">
+			<text>0人</text>
 			<text style="font-size: 12px;">点击这里查看历史记录</text>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -79,10 +90,59 @@
 				data: this.utils.getDate(),
 				imglist: ["../../static/img/lunbo/1.png",
 					"../../static/img/lunbo/2.png"
-				]
+				],
+				selectDay: 0,
+				array: ['今天', '一天前', '二天前', '三天前', '四天前', '五天前', '六天前'],
+				userlist:'',
+				pageNum: 1,
+				pageSize: 1,
 			}
 		},
+		onLoad() {
+			
+		},
 		methods: {
+			bindPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为', e.target.value)
+				this.teacher();
+				this.selectDay = e.target.value;
+				// this.pageNum = 1;
+				
+			},
+			//老师请求
+			teacher() {
+				if(this.userlist == ''){
+					this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
+					console.log(this.userlist)
+				}
+				this.utils.showloading();
+				this.http.getApi('/discern/ClassDate', {
+					schoolId: this.userlist.schoolId,
+					classId: this.userlist.classId,
+					selectDay: this.selectDay,
+					pageNum: this.pageNum,
+					pageSize: this.pageSize
+				}, 'post').then(res => {
+					console.log("res");
+					console.log(res);
+					this.list = res.data;
+					// this.newslist = this.pageNum > 1 ? this.newslist.concat(res.data) : res.data;
+					// this.pageNum = res.data.pageNum == this.pageNum ? this.pageNum + 1 : this.pageNum;
+					// this.totalPage = res.data.pages;
+					uni.hideLoading();
+					this.utils.success('加载成功！');
+					uni.setStorageSync('newslist', res.data.userDate);
+			
+				}).catch(err => {
+					console.log("err");
+					console.log(err);
+					uni.hideLoading();
+					this.utils.error(err.msg);
+					this.list={};
+					uni.removeStorageSync('newslist');
+					
+				});
+			},
 			yulanr(item2){
 				this.openImg(item2);
 			}
